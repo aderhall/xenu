@@ -90,6 +90,11 @@ def on_message(message):
             # Restart
             subprocess.Popen('python3 bot.py', shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
             os.abort()
+        elif msg.startswith(PREFIX + 'mute'):
+            user = msg[6:]
+            member = get_member_named(user)
+            add_roles(member, 'muted')
+            client.send_message(message.channel, 'Muted ' + user + ' (' + member + ')')
         elif message.content.isupper() and len(message.content) > 5:
             # if someone sends a message in all caps, respond with a friendly reminder
             yield from client.send_message(message.channel, "did that _really_ need to be in all caps?")
