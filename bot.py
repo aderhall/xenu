@@ -93,7 +93,7 @@ def on_message(message):
         elif msg.startswith(PREFIX + 'mute'):
             name = message.content[6:]
             yield from client.send_message(message.channel, 'User ' + name)
-            member = discord.Server.get_member_named('GeneralGreat')
+            member = discord.Server.get_member_named('name' : 'GeneralGreat')
             yield from client.send_message(message.channel, 'Member ID' + member)
             discord.add_roles(member, 'muted')
             yield from client.send_message(message.channel, 'Muted ' + name + ' (' + member + ')')
