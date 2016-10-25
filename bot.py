@@ -91,7 +91,7 @@ def on_message(message):
             subprocess.Popen('python3 bot.py', shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
             os.abort()
         elif msg.startswith(PREFIX + 'mute'):
-            user = msg[6:]
+            user = message.content[6:]
             yield from client.send_message(message.channel, 'User ' + user)
             member = discord.Server.get_member_named(user)
             yield from client.send_message(message.channel, 'Member ID' + member)
