@@ -92,7 +92,7 @@ def on_message(message):
             os.abort()
         elif msg.startswith(PREFIX + 'mute'):
             user = msg[6:]
-            member = discord.get_member_named(user)
+            member = discord.Member(get_member_named(user))
             discord.add_roles(member, 'muted')
             client.send_message(message.channel, 'Muted ' + user + ' (' + member + ')')
         elif message.content.isupper() and len(message.content) > 5:
