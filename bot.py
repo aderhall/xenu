@@ -92,11 +92,11 @@ def on_message(message):
             os.abort()
         elif msg.startswith(PREFIX + 'mute'):
             user = msg[6:]
-            client.send_message(message.channel, 'User ' + user)
+            yield from client.send_message(message.channel, 'User ' + user)
             member = discord.Server.get_member_named(user)
-            client.send_message(message.channel, 'Member ID' + member)
+            yield from client.send_message(message.channel, 'Member ID' + member)
             discord.add_roles(member, 'muted')
-            client.send_message(message.channel, 'Muted ' + user + ' (' + member + ')')
+            yield from client.send_message(message.channel, 'Muted ' + user + ' (' + member + ')')
         elif message.content.isupper() and len(message.content) > 5:
             # if someone sends a message in all caps, respond with a friendly reminder
             yield from client.send_message(message.channel, "did that _really_ need to be in all caps?")
