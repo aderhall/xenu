@@ -53,7 +53,7 @@ async def on_ready():
     print('Logged in as ' + client.user.name + ' (ID ' + client.user.id + ').')
     print('------')
     # Turns out this is annoying
-    # yield from client.send_message(client.get_channel('228121885630529536'), 'Victibot is online and ready! Currently running as ' + client.user.name + ' (ID ' + client.user.id + ').')
+    yield from client.send_message(client.get_channel('228121885630529536'), 'Victibot is online and ready! Currently running as ' + client.user.name + ' (ID ' + client.user.id + ').')
 
 
 @client.async_event
