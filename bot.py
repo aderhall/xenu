@@ -5,6 +5,9 @@ import subprocess
 import requests
 import json
 import os
+from discord.ext import commands
+description = '''A bot for FRC team 1418's discord server. Still a work in progress, please make a pull request with any suggestions'''
+bot = commands.Bot(command_prefix='?', description=description)
 # Initialize bot client
 # TODO: Make bot a class like normal bots.
 client = discord.Client()
@@ -44,8 +47,8 @@ helpMessage = """Welcome to VictiBot!
               Type one of these into the chat to try it out"""
 
 
-@client.async_event
-def on_ready():
+@bot.event
+async def on_ready():
     """Run when the bot is ready."""
     print('Logged in as ' + client.user.name + ' (ID ' + client.user.id + ').')
     print('------')
