@@ -7,7 +7,7 @@ import json
 import os
 from discord.ext import commands
 description = '''A bot for FRC team 1418's discord server. Still a work in progress, please make a pull request with any suggestions'''
-bot = commands.Bot(command_prefix='?', description=description)
+bot = commands.Bot(command_prefix='!', description=description)
 # Initialize bot client
 # TODO: Make bot a class like normal bots.
 client = discord.Client()
@@ -29,7 +29,8 @@ messageIndex = {
     'rickroll': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     'xcq': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     'it\'s time to stop': 'https://www.youtube.com/watch?v=2k0SmqbBIpQ',
-    'stop': 'https://www.youtube.com/watch?v=2k0SmqbBIpQ'
+    'stop': 'https://www.youtube.com/watch?v=2k0SmqbBIpQ',
+    'china': 'https://www.youtube.com/watch?v=RDrfE9I8_hs'
 }
 
 helpMessage = """Welcome to VictiBot!
@@ -60,7 +61,6 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
-
 
 @client.async_event
 def on_message(message):
