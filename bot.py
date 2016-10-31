@@ -9,16 +9,16 @@ from discord.ext import commands
 description = '''A bot for FRC team 1418's discord server. Still a work in progress, please make a pull request with any suggestions'''
 bot = commands.Bot(command_prefix='!', description=description)
 def contains(origin, text):
-    self.vf = False
-    self.soc = 0
+    vf = False
+    soc = 0
     for i in origin:
         if origin[i] == text[1]:
             for a in origin:
                 if origin[a+i] != text[a]:
-                    self.vf = True
-        if self.vf == False:
-            self.soc += 1
-    return self.soc
+                    vf = True
+        if vf == False:
+            soc += 1
+    return soc
 # Initialize bot client
 # TODO: Make bot a class like normal bots.
 client = discord.Client()
