@@ -11,10 +11,10 @@ bot = commands.Bot(command_prefix='!', description=description)
 def contains(origin, text):
     vf = False
     soc = 0
-    for i in len(origin):
+    for i in xrange(len(origin)):
         print ('Testing letter:' + i)
         if origin[i] == text[1]:
-            for a in origin:
+            for a in xrange(len(origin)):
                 print (a)
                 if origin[a+i] != text[a]:
                     vf = True
