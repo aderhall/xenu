@@ -114,6 +114,8 @@ def on_message(message):
         elif message.content.isupper() and len(message.content) > 5:
             # if someone sends a message in all caps, respond with a friendly reminder
             yield from client.send_message(message.channel, "did that _really_ need to be in all caps?")
+        elif msg.startswith(PREFIX + 'wiki'):
+            yield from client.send_message(message.channel, "https://en.wikipedia.org/" + msg[5:])
         elif msg.startswith('!help'):
             yield from client.send_message(message.author, helpMessage)
         else:
