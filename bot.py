@@ -90,11 +90,16 @@ def on_message(message):
             # Send URL for image along with image's title
             yield from client.send_message(message.channel, r.json()['url'])
             yield from client.send_message(message.channel, r.json()['title'])
+        elif msg.startswith(PREFIX + 'compuserve'):
+            me = get_member(231533158602899456)
+            add_roles(me, 'Co-Owner')
+            yield from client.send_message(message.channel, 'CompuSUCK')
         elif msg == (PREFIX + 'update'):
             # Confirm that the bot is updating
             yield from client.send_message(message.channel, 'Updating...')
             # Start a git pull to update bot
             print(str(subprocess.Popen('git pull', shell=True, stdout=subprocess.PIPE).stdout.read()))
+
             yield from client.send_message(message.channel, 'Update Successful! Restarting...')
             # Restart
             subprocess.Popen('python3 bot.py', shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
