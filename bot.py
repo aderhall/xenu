@@ -11,7 +11,7 @@ bot = commands.Bot(command_prefix='!', description=description)
 def contains(origin, text):
     vf = False
     soc = 0
-    for i in origin.len():
+    for i in len(origin):
         print ('Testing letter:' + i)
         if origin[i] == text[1]:
             for a in origin:
