@@ -33,6 +33,8 @@ def contains(origin, text):
                     loop2 = False
         if vf == False:
             soc += 1
+        else:
+            soc = 0
         if i >= (len(origin)-1):
             loop = False
     return soc
