@@ -12,17 +12,25 @@ bot = commands.Bot(command_prefix='!', description=description)
 def contains(origin, text):
     vf = False
     soc = 0
-    i = 0
-    for i in itertools.repeat(0,len(origin)):
+    i = -1
+    loop = True
+    while loop:
+        i += 1
         print ('Testing letter:' + origin[i])
         if origin[i] == text[1]:
-            a = 0
-            for _ in itertools.repeat(0,len(origin)):
+            a = -1
+            loop2 = True
+            while loop2:
+                a += 1
                 print ('Trying: ' + str(a))
                 if origin[a+i] != text[a]:
                     vf = True
+                if a >= len(text):
+                    loop2 = False
         if vf == False:
             soc += 1
+        if i >= len(origin):
+            loop = False
     return soc
 # Initialize bot client
 # TODO: Make bot a class like normal bots.
