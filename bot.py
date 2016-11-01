@@ -64,8 +64,7 @@ messageIndex = {
     'rickroll': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     'xcq': 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     'it\'s time to stop': 'https://www.youtube.com/watch?v=2k0SmqbBIpQ',
-    'stop': 'https://www.youtube.com/watch?v=2k0SmqbBIpQ',
-    'china': 'https://www.youtube.com/watch?v=RDrfE9I8_hs'
+    'stop': 'https://www.youtube.com/watch?v=2k0SmqbBIpQ'
 }
 
 helpMessage = """Welcome to VictiBot!
@@ -151,6 +150,8 @@ def on_message(message):
             yield from client.send_message(message.channel, "Did that _really_ need to be in all caps?")
         elif msg.startswith(PREFIX + 'wiki'):
             yield from client.send_message(message.channel, 'https://en.wikipedia.org/wiki/' + msg[6:])
+        elif contains(msg, 'china') >= 1:
+            yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=RDrfE9I8_hs')
         elif msg == '!abuse':
             yield from client.send_message(message.channel, '!abuse')
         elif contains(msg, 'determination') >= 1:
