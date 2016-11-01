@@ -36,9 +36,6 @@ def contains(origin, text):
         if vf == False:
             soc += 1
             print ('Found occurance')
-        else:
-            soc = 0
-            print ('Reset soc')
         if i >= (len(origin)-1):
             loop = False
             vf = True
