@@ -134,7 +134,7 @@ def on_message(message):
             yield from client.send_message(message.channel, 'https://en.wikipedia.org/wiki/' + msg[6:])
         elif msg == '!abuse':
             yield from client.send_message(message.channel, '!abuse')
-        elif contains(msg, 'determination'):
+        elif contains(msg, 'determination') >= 1:
             yield from client.send_message(message.channel, 'Knowing the mouse might one day leave its hole and get the cheese... It fills you with determination.')
         elif msg.startswith('!help'):
             yield from client.send_message(message.author, helpMessage)
