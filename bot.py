@@ -156,6 +156,19 @@ def on_message(message):
             yield from client.send_message(message.channel, '!abuse')
         elif contains(msg, 'determination') >= 1:
             yield from client.send_message(message.channel, 'Knowing the mouse might one day leave its hole and get the cheese... It fills you with determination.')
+        elif msg.startswith(PREFIX + 'define'):
+            define = message.content[7:]
+            # Establish a link with the website
+            page = requests.get('http://www.yourdictionary.com/' + define )
+            tree = html.fromstring(page.content)
+            # Collect the specific word using XCode
+            Definition = tree.xpath('//*[@id="definitions_panel"]/div/div/div[4]/div[1]/div[1]')
+            # Dictionary term
+            # Now just need to print definition to chat
+            # Don't know how to do that
+            # I'll try something, but it's probably bad.
+            yield from client.send_message(message.channel, 'Definition for ' + define)
+            yield from client.send_message(message.channel, Definition)
         elif msg.startswith('!help'):
             yield from client.send_message(message.author, helpMessage)
         else:
