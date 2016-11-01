@@ -29,11 +29,11 @@ def contains(origin, text):
                         vf = True
                 except:
                     vf = True
-                if a >= len(text):
+                if a >= (len(text)-1):
                     loop2 = False
         if vf == False:
             soc += 1
-        if i >= len(origin):
+        if i >= (len(origin)-1):
             loop = False
     return soc
 # Initialize bot client
