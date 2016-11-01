@@ -26,6 +26,7 @@ def contains(origin, text):
                 print ('Trying: ' + str(a) + ' ' + text[a])
                 try:
                     if origin[a+i] != text[a]:
+                        print ('Canceled search')
                         vf = True
                 except:
                     vf = True
