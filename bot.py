@@ -10,6 +10,7 @@ from discord.ext import commands
 description = '''A bot for FRC team 1418's discord server. Still a work in progress, please make a pull request with any suggestions'''
 bot = commands.Bot(command_prefix='!', description=description)
 def contains(origin, text):
+    print ('Text: ' + text)
     vf = False
     soc = 0
     i = -1
