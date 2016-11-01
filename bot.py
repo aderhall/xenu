@@ -32,7 +32,6 @@ def contains(origin, text):
                     vf = True
                 if a >= (len(text)-1):
                     loop2 = False
-                    vf = True
         if vf == False:
             soc += 1
             print ('Found occurance')
