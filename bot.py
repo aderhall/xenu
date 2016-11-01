@@ -16,6 +16,7 @@ def contains(origin, text):
     i = -1
     loop = True
     while loop:
+        vf = false
         i += 1
         print ('Testing letter:' + str(i) + ' (' + origin[i] + ')')
         if origin[i] == text[0]:
