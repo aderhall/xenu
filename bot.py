@@ -6,7 +6,7 @@ import requests
 import json
 import os
 import itertools
-from lxml import html
+import lxml
 from discord.ext import commands
 description = '''A bot for FRC team 1418's discord server. Still a work in progress, please make a pull request with any suggestions'''
 bot = commands.Bot(command_prefix='!', description=description)
@@ -161,7 +161,7 @@ def on_message(message):
             define = message.content[7:]
             # Establish a link with the website
             page = requests.get('http://www.yourdictionary.com/' + define )
-            tree = html.fromstring(page.content)
+            tree = lxml.html.fromstring(page.content)
             # Collect the specific word using XCode
             Definition = tree.xpath('//*[@id="definitions_panel"]/div/div/div[4]/div[1]/div[1]')
             # Dictionary term
