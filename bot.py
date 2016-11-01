@@ -6,6 +6,7 @@ import requests
 import json
 import os
 import itertools
+from lxml import html
 from discord.ext import commands
 description = '''A bot for FRC team 1418's discord server. Still a work in progress, please make a pull request with any suggestions'''
 bot = commands.Bot(command_prefix='!', description=description)
