@@ -23,7 +23,10 @@ def contains(origin, text):
             while loop2:
                 a += 1
                 print ('Trying: ' + str(a))
-                if origin[a+i] != text[a]:
+                try:
+                    if origin[a+i] != text[a]:
+                        vf = True
+                except:
                     vf = True
                 if a >= len(text):
                     loop2 = False
