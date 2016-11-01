@@ -5,16 +5,19 @@ import subprocess
 import requests
 import json
 import os
+import itertools
 from discord.ext import commands
 description = '''A bot for FRC team 1418's discord server. Still a work in progress, please make a pull request with any suggestions'''
 bot = commands.Bot(command_prefix='!', description=description)
 def contains(origin, text):
     vf = False
     soc = 0
-    for i in xrange(len(origin)):
+    i = 0
+    for i in itertools.repeat(0,len(origin)):
         print ('Testing letter:' + i)
         if origin[i] == text[1]:
-            for a in xrange(len(origin)):
+            a = 0
+            for _ in itertools.repeat(0,len(origin)):
                 print (a)
                 if origin[a+i] != text[a]:
                     vf = True
