@@ -16,13 +16,13 @@ def contains(origin, text):
     loop = True
     while loop:
         i += 1
-        print ('Testing letter:' + i + ' (' + origin[i] + ')')
+        print ('Testing letter:' + str(i) + ' (' + origin[i] + ')')
         if origin[i] == text[1]:
             a = -1
             loop2 = True
             while loop2:
                 a += 1
-                print ('Trying: ' + str(a))
+                print ('Trying: ' + str(a) + ' ' + text[a])
                 try:
                     if origin[a+i] != text[a]:
                         vf = True
