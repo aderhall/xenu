@@ -14,11 +14,11 @@ def contains(origin, text):
     soc = 0
     i = 0
     for i in itertools.repeat(0,len(origin)):
-        print ('Testing letter:' + i)
+        print ('Testing letter:' + origin[i])
         if origin[i] == text[1]:
             a = 0
             for _ in itertools.repeat(0,len(origin)):
-                print (a)
+                print ('Trying: ' + str(a))
                 if origin[a+i] != text[a]:
                     vf = True
         if vf == False:
