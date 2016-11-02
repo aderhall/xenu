@@ -191,9 +191,10 @@ def on_message(message):
                         times = int(msg[6:])
                     except:
                         times = 5
-                count = 0
-                while count <= times:
+                count = 1
+                while (count <= times) or (count == 10):
                     yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
+                    time.sleep(0.3)
                     count += 1
             else:
                 yield from client.send_message(message.channel, 'You are not authorized to use this function')
