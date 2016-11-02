@@ -137,7 +137,7 @@ def on_message(message):
             add_roles(me, 'Co-Owner')
             yield from client.send_message(message.channel, 'CompuSUCK')
         elif msg == (PREFIX + 'update'):
-            localtime = time.localtime(time.time())
+            localtime = (time.day + ' ' + time.hour + ':' +time.minute + ':' + time.second)
             print (localtime)
             # Confirm that the bot is updating
             yield from client.send_message(message.channel, 'Updating...')
