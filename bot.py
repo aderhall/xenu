@@ -180,7 +180,7 @@ def on_message(message):
             yield from client.send_message(message.author, helpMessage)
         elif contains(msg, 'shrek'):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=cevWfNbRVpo')
-        elif contains(msg, 'nyes'):
+        elif contains(msg, 'nye':
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=26OE9Bq-lr8')
         elif msg.startswith(PREFIX + 'spam'):
             # Need to figure how to store the numbers after username without it turning into a comment
