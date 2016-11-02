@@ -190,7 +190,7 @@ def on_message(message):
             except:
                 name = 'everyone'
             yield from client.send_message(message.channel, 'Abusing ' + name + '.')
-            yield from client.send_message(message.channel, random.choice(insult2List) + ' @' + name + random.choice(insultList))
+            yield from client.send_message(message.channel, random.choice(insult2List) + ' <@' + name + '>' + random.choice(insultList))
         elif contains(msg, 'determination') >= 1:
             yield from client.send_message(message.channel, 'Knowing the mouse might one day leave its hole and get the cheese... It fills you with determination.')
         elif contains(msg, 'china') >= 1:
