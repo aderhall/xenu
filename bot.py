@@ -100,8 +100,13 @@ botCommanders = {
 insultList = [
     ', your face reminds me of a nasty little Pumpkin.',
     ', your face causes me distress.',
-    ', Is your ass jealous of the amount of shit that just came out of your mouth?',
-    ', I could eat a bowl of alphabet soup and shit out a smarter statement than that.'
+    ', is your ass jealous of the amount of shit that just came out of your mouth?',
+    ', I could eat a bowl of alphabet soup and shit out a smarter statement than that.',
+    ', a guy with your IQ should have a low voice too!',
+    ', after meeting you, I\'ve decided I am in favor of abortion in cases of incest.',
+    ', learn from your parents\' mistakes - use birth control!',
+    ', calling you stupid would be an insult to stupid people.',
+    ', can I borrow your face for a few days while my ass is on vacation?'
 ]
 insult2List = [
     'Hey ',
