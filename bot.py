@@ -54,7 +54,7 @@ lastuser = lastchannel[22:]
 lastuser = lastuser[:-7]
 lastchannel = lastchannel[2:20]
 lasttime = str(subprocess.Popen('cat lasttime', shell=True, stdout=subprocess.PIPE).stdout.read())
-lasttime = lasttime[2:-2]
+lasttime = lasttime[2:-3]
 print (lastuser)
 print (lastchannel)
 # bot prefix
