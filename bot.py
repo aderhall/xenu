@@ -90,12 +90,12 @@ helpMessage = """Welcome to VictiBot!
 #    # Turns out this is annoying
 #    await client.send_message(client.get_channel('228121885630529536'), 'Victibot is online and ready! Currently running as ' + client.user.name + ' (ID ' + client.user.id + ').')
 
-@bot.event
-async def on_ready():
-    print('Logged in as')
-    print(bot.user.name)
-    print(bot.user.id)
+@client.async_event
+def on_ready():
+      print('Logged in as ' + client.user.name + ' (ID ' + client.user.id + ').')
     print('------')
+    # Turns out this is annoying
+    # yield from client.send_message(client.get_channel('228121885630529536'), 'Victibot is online and ready! Currently running as ' + client.user.name + ' (ID ' + client.user.id + ').')
 
 @client.async_event
 def on_message(message):
