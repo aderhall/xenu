@@ -142,9 +142,11 @@ def on_message(message):
             # Confirm that the bot is updating
             yield from client.send_message(message.channel, 'Updating...')
             # Start a git pull to update bot
-            print(str(subprocess.Popen('git pull', shell=True, stdout=subprocess.PIPE).stdout.read()))
+            print (str(subprocess.Popen('git pull', shell=True, stdout=subprocess.PIPE).stdout.read()))
             print (str(message.author))
-            print(str(subprocess.Popen('touch lastchannel && echo "' + str(message.channel.id) + '" | cat > lastchannel && echo "' + str(message.author) + '" cat >> lastchannel', shell=True, stdout=subprocess.PIPE).stdout.read()))
+            print (str(subprocess.Popen('touch lastchannel && echo "' + str(message.channel.id) + '" | cat > lastchannel && echo "' + str(message.author) + '" cat >> lastchannel', shell=True, stdout=subprocess.PIPE).stdout.read()))
+            print (str(subprocess.Popen('touch lasttime && echo "' + localtime + '" | cat > lasttime', shell=True, stdout=subprocess.PIPE).stdout.read()))
+            print ('Local Time: ' + localtime)
             yield from client.send_message(message.channel, 'Update Successful! Restarting...')
             # Restart
             subprocess.Popen('python3 bot.py', shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
