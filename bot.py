@@ -8,6 +8,7 @@ import os
 import itertools
 import lxml
 import time
+import random
 from discord.ext import commands
 description = '''A bot for FRC team 1418's discord server. Still a work in progress, please make a pull request with any suggestions'''
 bot = commands.Bot(command_prefix='!', description=description)
@@ -95,6 +96,18 @@ botCommanders = {
     'Adrian#7972' : True,
     'MoonMoon#9830' : True
 }
+# Add as many insults as you want.
+insultList = [
+    ', your face reminds me of a nasty little Pumpkin.',
+    ', your face causes me distress.',
+    ', Is your ass jealous of the amount of shit that just came out of your mouth?',
+    ', I could eat a bowl of alphabet soup and shit out a smarter statement than that.'
+]
+insult2List = [
+    'Hey ',
+    'Yo ',
+    'Whattup '
+]
 #@bot.event
 #async def on_ready():
 #    print('Logged in as ' + bot.user.name + ' (ID ' + bot.user.id + ').')
@@ -171,7 +184,13 @@ def on_message(message):
         elif msg.startswith(PREFIX + 'wiki'):
             yield from client.send_message(message.channel, 'https://en.wikipedia.org/wiki/' + msg[6:])
         elif msg == '!abuse':
-            yield from client.send_message(message.channel, '!abuse')
+            # Get the name of the Abusee
+            try:
+                name = message.content[7:]
+            except:
+                name = 'everyone'
+            yield from client.send_message(message.channel, 'Abusing ' + name + '.')
+            yield from client.send_message(message.channel, random.choice(insult2List) + ' @' + name + random.choice(insultList))
         elif contains(msg, 'determination') >= 1:
             yield from client.send_message(message.channel, 'Knowing the mouse might one day leave its hole and get the cheese... It fills you with determination.')
         elif contains(msg, 'china') >= 1:
