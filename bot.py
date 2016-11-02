@@ -145,7 +145,8 @@ def on_message(message):
             # Confirm that the bot is updating
             yield from client.send_message(message.channel, 'Updating...')
             localtime = time.asctime( time.localtime(time.time()) )
-            print (localtime)
+            timezone = time.altzone
+            print ('Time and Date: ' + localtime + ' UTC + (' + str(timezone) + ')')
             # Start a git pull to update bot
             updateresults = (str(subprocess.Popen('git pull', shell=True, stdout=subprocess.PIPE).stdout.read()))
             print (updateresults)
