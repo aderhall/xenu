@@ -180,7 +180,7 @@ def on_message(message):
             yield from client.send_message(message.author, helpMessage)
         elif contains(msg, 'shrek'):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=cevWfNbRVpo')
-        elif contains(msg, 'nye'):
+        elif contains(msg, 'nye') or contains(msg, 'yas'):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=26OE9Bq-lr8')
         elif contains(msg, 'tokyo') or contains(msg, 'ghoul'):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=XxK54P_4PiA')
