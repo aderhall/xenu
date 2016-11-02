@@ -53,6 +53,7 @@ print (lastchannel)
 lastuser = lastchannel[22:]
 lastuser = lastuser[:-7]
 lastchannel = lastchannel[2:20]
+lasttime = str(subprocess.Popen('cat lasttime', shell=True, stdout=subprocess.PIPE).stdout.read())
 print (lastuser)
 print (lastchannel)
 # bot prefix
@@ -102,7 +103,7 @@ def on_ready():
     print('Logged in as ' + client.user.name + ' (ID ' + client.user.id + ').')
     print('------')
     # Turns out this is annoying
-    yield from client.send_message(client.get_channel(lastchannel), 'Victibot is online and ready! Currently running as ' + client.user.name + ' (ID ' + client.user.id + '). Last updated by user: ' + lastuser + '.')
+    yield from client.send_message(client.get_channel(lastchannel), 'Victibot is online and ready! Currently running as ' + client.user.name + ' (ID ' + client.user.id + '). Last updated by user: ' + lastuser + ' on ' + lasttime)
 
 @client.async_event
 def on_message(message):
