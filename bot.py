@@ -138,7 +138,7 @@ def on_message(message):
             yield from client.send_message(message.channel, 'CompuSUCK')
         elif msg == (PREFIX + 'update'):
             localtime = time.localtime(time.time())
-            print localtime
+            print (localtime)
             # Confirm that the bot is updating
             yield from client.send_message(message.channel, 'Updating...')
             # Start a git pull to update bot
