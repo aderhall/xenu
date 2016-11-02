@@ -192,7 +192,7 @@ def on_message(message):
                     except:
                         times = 5
                 count = 1
-                while (count <= times) or (count == 10):
+                while (count <= times) or (count > 10):
                     yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
                     time.sleep(0.3)
                     count += 1
