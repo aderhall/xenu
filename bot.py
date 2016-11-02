@@ -50,7 +50,7 @@ client = discord.Client()
 lastchannel = str(subprocess.Popen('cat lastchannel', shell=True, stdout=subprocess.PIPE).stdout.read())
 print (lastchannel)
 lastuser = lastchannel[22:]
-lastuser = lastuser[:-6]
+lastuser = lastuser[:-7]
 lastchannel = lastchannel[2:20]
 print (lastuser)
 print (lastchannel)
