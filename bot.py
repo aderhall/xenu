@@ -187,7 +187,9 @@ def on_message(message):
                 yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
                 yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
             else:
-                yield from client.send_mesage(message.channel, 'You are not authorized to use this function')
+                yield from client.send_message(message.channel, 'You are not authorized to use this function')
+            if str(message.author) != 'Adrian#7972':
+                yield from client.send_message(message.channel, 'You are not authorized to use this function')
         else:
             # Respond if the message has a basic, static response.
             # TODO: Apparently 'yield from' has been replaced in py3 with 'yield from'.
