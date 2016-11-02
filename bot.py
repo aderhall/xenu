@@ -48,6 +48,7 @@ def contains(origin, text):
 # TODO: Make bot a class like normal bots.
 client = discord.Client()
 lastchannel = str(subprocess.Popen('cat lastchannel', shell=True, stdout=subprocess.PIPE).stdout.read())
+print (lastchannel)
 # bot prefix
 PREFIX = '!'
 
