@@ -174,7 +174,7 @@ def on_message(message):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=RDrfE9I8_hs')
         elif msg.startswith('!help'):
             yield from client.send_message(message.author, helpMessage)
-        elif msg.startswith(PREFIX + 'spam')
+        elif msg.startswith(PREFIX + 'spam'):
             # Need to figure how to store the numbers after username without it turning into a comment
             # Please check this
             if str(message.author) == str('Adrian#7972'):
