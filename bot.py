@@ -49,7 +49,10 @@ def contains(origin, text):
 client = discord.Client()
 lastchannel = str(subprocess.Popen('cat lastchannel', shell=True, stdout=subprocess.PIPE).stdout.read())
 print (lastchannel)
+lastuser = lastchannel[22:]
+lastuser[:-6]
 lastchannel = lastchannel[2:20]
+print (lastuser)
 print (lastchannel)
 # bot prefix
 PREFIX = '!'
