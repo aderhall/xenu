@@ -91,7 +91,10 @@ helpMessage = """Welcome to VictiBot!
 
               Type one of these into the chat to try it out"""
 
-
+botCommanders = {
+    'Adrian#7972' : True,
+    'MoonMoon#9830' : True
+}
 #@bot.event
 #async def on_ready():
 #    print('Logged in as ' + bot.user.name + ' (ID ' + bot.user.id + ').')
@@ -177,8 +180,12 @@ def on_message(message):
         elif msg.startswith(PREFIX + 'spam'):
             # Need to figure how to store the numbers after username without it turning into a comment
             # Please check this
+            try:
+                botcommand = botCommanders[str(message.author)]
+            except:
+                botcommand = false
             yield from client.send_message(message.channel, 'Checking authorization for ' + str(message.author))
-            if str(message.author) == 'Adrian#7972':
+            if botcommand:
                 yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
                 yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
                 yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
