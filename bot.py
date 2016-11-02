@@ -137,7 +137,7 @@ def on_message(message):
             yield from client.send_message(message.channel, 'Updating...')
             # Start a git pull to update bot
             print(str(subprocess.Popen('git pull', shell=True, stdout=subprocess.PIPE).stdout.read()))
-            print (str(message.author.nick))
+            print (str(message.author))
             print(str(subprocess.Popen('touch lastchannel && echo "' + str(message.channel.id) + '" | cat > lastchannel && echo "' + str(message.author.nick) + '" cat >> lastchannel', shell=True, stdout=subprocess.PIPE).stdout.read()))
             yield from client.send_message(message.channel, 'Update Successful! Restarting...')
             # Restart
