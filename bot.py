@@ -187,6 +187,7 @@ def on_message(message):
             # Get the name of the Abusee
             try:
                 name = msg[7:]
+                name = name.mention
             except:
                 name = 'everyone'
             yield from client.send_message(message.channel, 'Abusing ' + name + '.')
