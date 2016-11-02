@@ -183,10 +183,10 @@ def on_message(message):
             yield from client.send_message(message.channel, "Did that _really_ need to be in all caps?")
         elif msg.startswith(PREFIX + 'wiki'):
             yield from client.send_message(message.channel, 'https://en.wikipedia.org/wiki/' + msg[6:])
-        elif msg == '!abuse':
+        elif msg.startswith(PREFIX + 'abuse'):
             # Get the name of the Abusee
             try:
-                name = message.content[7:]
+                name = msg[7:]
             except:
                 name = 'everyone'
             yield from client.send_message(message.channel, 'Abusing ' + name + '.')
