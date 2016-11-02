@@ -139,13 +139,14 @@ def on_message(message):
             add_roles(me, 'Co-Owner')
             yield from client.send_message(message.channel, 'CompuSUCK')
         elif msg == (PREFIX + 'update'):
-            localtime = time.asctime( time.localtime(time.time()) )
-            print (localtime)
             # Confirm that the bot is updating
             yield from client.send_message(message.channel, 'Updating...')
+            localtime = time.asctime( time.localtime(time.time()) )
+            print (localtime)
             # Start a git pull to update bot
-            print (str(subprocess.Popen('git pull', shell=True, stdout=subprocess.PIPE).stdout.read()))
-            print (str(message.author))
+            updateresults = (str(subprocess.Popen('git pull', shell=True, stdout=subprocess.PIPE).stdout.read()))
+            print (updateresults)
+            print ('Username: ' + str(message.author))
             print (str(subprocess.Popen('touch lastchannel && echo "' + str(message.channel.id) + '" | cat > lastchannel && echo "' + str(message.author) + '" cat >> lastchannel', shell=True, stdout=subprocess.PIPE).stdout.read()))
             print (str(subprocess.Popen('touch lasttime && echo "' + localtime + '" | cat > lasttime', shell=True, stdout=subprocess.PIPE).stdout.read()))
             print ('Local Time: ' + localtime)
@@ -173,6 +174,17 @@ def on_message(message):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=RDrfE9I8_hs')
         elif msg.startswith('!help'):
             yield from client.send_message(message.author, helpMessage)
+        elif msg.startswith(PREFIX + 'spam')
+            # Need to figure how to store the numbers after username without it turning into a comment
+            # Please check this
+            if str(message.author) == str('Adrian#7972'):
+                yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
+                yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
+                yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
+                yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
+                yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
+                yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
+                yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
         else:
             # Respond if the message has a basic, static response.
             # TODO: Apparently 'yield from' has been replaced in py3 with 'yield from'.
