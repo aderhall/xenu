@@ -194,7 +194,7 @@ def on_message(message):
                 count = 0
                 while count <= times:
                     yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
-                    count ++
+                    count += 1
             else:
                 yield from client.send_message(message.channel, 'You are not authorized to use this function')
         else:
