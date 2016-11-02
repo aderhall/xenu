@@ -184,6 +184,8 @@ def on_message(message):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=26OE9Bq-lr8')
         elif contains(msg, 'tokyo') or contains(msg, 'ghoul'):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=XxK54P_4PiA')
+        elif contains(msg, 'senpai'):
+            yield from client.send_message(message.channel, 'http://vignette4.wikia.nocookie.net/yandere-simulator/images/e/ea/Senpai_Sep18.png/revision/latest?cb=20150920021049')
         elif msg.startswith(PREFIX + 'spam'):
             # Need to figure how to store the numbers after username without it turning into a comment
             # Please check this
