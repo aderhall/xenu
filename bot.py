@@ -143,7 +143,8 @@ def on_message(message):
     if not message.author.bot:
         # Special returns!
         if msg.startswith(PREFIX + 'about'):
-            yield from client.send_message(message.channel, 'Victibot is a chatbot for Team 1418\'s Discord server. Bot is currently running as ' + client.user.name + ' (ID ' + client.user.id + '). View on GitHub: https://github.com/frc1418/victibot')
+            yield from client.send_message(message.channel, 'VictiBot is a chatbot for Team 1418\'s Discord server. Bot is currently running as ' + client.user.name + ' (ID ' + client.user.id + '). View on GitHub: https://github.com/frc1418/victibot')
+            yield from client.send_message(message.channel, 'Discuss VictiBot on VictiBot Hub: https://discord.gg/HmMMCzQ')
         elif msg.startswith('xkcd'):
             # Store the number/other content after the '!xkcd '.
             comic = msg[5:]
@@ -211,7 +212,7 @@ def on_message(message):
                 yield from client.send_message(message.channel, 'Abusing ' + name + '.')
                 yield from client.send_message(message.channel, random.choice(insult2List) + ' <@' + name + '>' + random.choice(insultList))
             else:
-                yield from client.send_message(message.channel, 'Not authorized to abuse.')
+                yield from client.send_message(message.channel, 'You are not authorized to use the abuse command.')
         elif contains(msg, 'determination') >= 1:
             yield from client.send_message(message.channel, 'Knowing the mouse might one day leave its hole and get the cheese... It fills you with determination.')
         elif contains(msg, 'china') >= 1:
