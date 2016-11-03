@@ -198,12 +198,20 @@ def on_message(message):
         elif msg.startswith(PREFIX + 'abuse'):
             # Get the name of the Abusee
             try:
+                botcommand = botCommanders[str(message.author)]
+            except:
+                botcommand = false
+            yield from client.send_message(message.channel, 'Checking authorization for ' + str(message.author))
+            try:
                 name = msg[7:]
                 name = name.mention
             except:
                 name = 'everyone'
-            yield from client.send_message(message.channel, 'Abusing ' + name + '.')
-            yield from client.send_message(message.channel, random.choice(insult2List) + ' <@' + name + '>' + random.choice(insultList))
+            if botcommand:
+                yield from client.send_message(message.channel, 'Abusing ' + name + '.')
+                yield from client.send_message(message.channel, random.choice(insult2List) + ' <@' + name + '>' + random.choice(insultList))
+            else:
+                yield from client.send_message(message.channel, 'Not authorized to abuse.')
         elif contains(msg, 'determination') >= 1:
             yield from client.send_message(message.channel, 'Knowing the mouse might one day leave its hole and get the cheese... It fills you with determination.')
         elif contains(msg, 'china') >= 1:
