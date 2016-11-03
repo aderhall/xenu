@@ -225,6 +225,15 @@ def on_message(message):
         elif contains(msg, 'senpai'):
             yield from client.send_message(message.channel, 'http://vignette4.wikia.nocookie.net/yandere-simulator/images/e/ea/Senpai_Sep18.png/revision/latest?cb=20150920021049')
             yield from client.send_message(message.channel, 'NOTICE ME SENPAI!')
+        elif contains(msg, 'my point'):
+            yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=WOOw2yWMSfk')
+        elif contains(msg, 'jurassic'):
+            yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=-w-58hQ9dLk')
+        elif message.author == 'Adrian#7972':
+            localtime = time.asctime( time.localtime(time.time()) )
+            timezone = time.altzone
+            message = message.content
+            yield from client.send_message('243737800992751617', 'Adrian Said: ' + message + 'At: ' + localtime + ' (UTC)')
         elif msg.startswith(PREFIX + 'spam'):
             # Need to figure how to store the numbers after username without it turning into a comment
             # Please check this
