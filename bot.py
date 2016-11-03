@@ -229,7 +229,7 @@ def on_message(message):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=WOOw2yWMSfk')
         elif contains(msg, 'jurassic'):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=-w-58hQ9dLk')
-        elif message.author == 'Adrian#7972':
+        elif str(message.author) == 'Adrian#7972':
             localtime = time.asctime( time.localtime(time.time()) )
             timezone = time.altzone
             message = message.content
