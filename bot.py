@@ -205,8 +205,9 @@ def on_message(message):
             yield from client.send_message(message.channel, 'Checking authorization for ' + str(message.author))
             try:
                 name = msg[7:]
-                name = name.mention
+                name = (message.server).get_member_named(name)
             except:
+                yield from client.send_message(message.channel, 'Could not find user: ' + name)
                 name = 'everyone'
             if botcommand:
                 yield from client.send_message(message.channel, 'Abusing ' + name + '.')
