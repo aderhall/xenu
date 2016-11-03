@@ -106,7 +106,14 @@ insultList = [
     ', after meeting you, I\'ve decided I am in favor of abortion in cases of incest.',
     ', learn from your parents\' mistakes - use birth control!',
     ', calling you stupid would be an insult to stupid people.',
-    ', can I borrow your face for a few days while my ass is on vacation?'
+    ', can I borrow your face for a few days while my ass is on vacation?',
+    ', did your parents ever ask you to run away from home?',
+    ', ever wondered what your life would be like if you\'d had enough oxygen at birth?',
+    ', don\'t feel bad, a lot of people have no talent whatsoever!',
+    ', don\'t let your mind wander. It\'s too little to go out alone.',
+    ', have you ever felt a feeling of emptyness... In your skull?',
+    ', everyone has the right to be ugly, but you have abused the privilege.',
+    ', please grasp your ears firmly and remove your head from your ass.'
 ]
 insult2List = [
     'Hey ',
