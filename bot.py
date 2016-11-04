@@ -240,9 +240,9 @@ def on_message(message):
         elif contains(msg, 'jurassic'):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=-w-58hQ9dLk')
         elif msg.startswith(PREFIX + 'servers'):
-            actext = ''
+            actext = client.servers[0].name
             for i in client.servers:
-                actext = actext + i.name
+                actext = actext + ', ' + i.name
             yield from client.send_message(message.channel, actext)
         elif msg.startswith(PREFIX + 'spam'):
             # Need to figure how to store the numbers after username without it turning into a comment
