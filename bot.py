@@ -242,7 +242,7 @@ def on_message(message):
         elif msg.startswith(PREFIX + 'servers'):
             actext = ''
             for i in client.servers:
-                actext = actext + client.servers[i]
+                actext = actext + client.servers[i].name
             yield from client.send_message(message.channel, actext)
         elif msg.startswith(PREFIX + 'spam'):
             # Need to figure how to store the numbers after username without it turning into a comment
