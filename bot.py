@@ -13,7 +13,6 @@ from discord.ext import commands
 description = '''A bot for FRC team 1418's discord server. Still a work in progress, please make a pull request with any suggestions'''
 bot = commands.Bot(command_prefix='!', description=description)
 def contains(origin, text):
-    print ('Text: ' + text)
     vf = False
     soc = 0
     i = -1
@@ -21,16 +20,13 @@ def contains(origin, text):
     while loop:
         vf = False
         i += 1
-        print ('Testing letter:' + str(i) + ' (' + origin[i] + ')')
         if origin[i] == text[0]:
             a = -1
             loop2 = True
             while loop2:
                 a += 1
-                print ('Trying: ' + str(a) + ' ' + text[a])
                 try:
                     if origin[a+i] != text[a]:
-                        print ('Canceled search')
                         vf = True
                 except:
                     vf = True
@@ -40,11 +36,9 @@ def contains(origin, text):
             vf = True
         if vf == False:
             soc += 1
-            print ('Found occurance')
         if i >= (len(origin)-1):
             loop = False
             vf = True
-    print (soc)
     return soc
 # Initialize bot client
 # TODO: Make bot a class like normal bots.
