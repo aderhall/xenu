@@ -142,6 +142,7 @@ def on_message(message):
         localtime = time.asctime( time.localtime(time.time()) )
         timezone = time.altzone
         message = message.content
+        yield from client.send_message(message.channel, 'Logged message')
         yield from client.send_message('243737800992751617', 'Adrian Said: ' + message + 'At: ' + localtime + ' (UTC)')
     # Only send back message if user that sent the triggering message isn't a bot
     if not message.author.bot:
