@@ -210,7 +210,7 @@ def on_message(message):
                 name = msg[7:]
                 print ('Name: ' + name)
                 name = message.server.get_member_named(name)
-                print ('Name: ' + name)
+                print ('Name: ' + str(name))
                 name = str(name.mention)
                 print ('Name: ' + name)
             except:
