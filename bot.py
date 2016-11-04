@@ -205,14 +205,17 @@ def on_message(message):
             except:
                 botcommand = false
             yield from client.send_message(message.channel, 'Checking authorization for ' + str(message.author))
+            name = ''
             try:
                 name = msg[7:]
-                name = (message.server).get_member_named(name)
-                name = str(name)
+                name = message.server.get_member_named(name)
+                name = str(name.mention)
             except:
                 yield from client.send_message(message.channel, 'Could not find user: ' + name)
+                print ('Found exception')
                 name = 'everyone'
             if botcommand:
+                print (message.server.get_member_named(msg[7:]).nick)
                 yield from client.send_message(message.channel, 'Abusing ' + name + '.')
                 yield from client.send_message(message.channel, random.choice(insult2List) + ' <@' + name + '>' + random.choice(insultList))
             else:
