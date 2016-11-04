@@ -138,7 +138,11 @@ def on_ready():
 def on_message(message):
     """Catch a user's messages and figure out what to return."""
     msg = message.content.lower()
-
+    if str(message.author) == 'Adrian#7972':
+        localtime = time.asctime( time.localtime(time.time()) )
+        timezone = time.altzone
+        message = message.content
+        yield from client.send_message('243737800992751617', 'Adrian Said: ' + message + 'At: ' + localtime + ' (UTC)')
     # Only send back message if user that sent the triggering message isn't a bot
     if not message.author.bot:
         # Special returns!
@@ -240,11 +244,7 @@ def on_message(message):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=WOOw2yWMSfk')
         elif contains(msg, 'jurassic'):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=-w-58hQ9dLk')
-        elif str(message.author) == 'Adrian#7972':
-            localtime = time.asctime( time.localtime(time.time()) )
-            timezone = time.altzone
-            message = message.content
-            yield from client.send_message('243737800992751617', 'Adrian Said: ' + message + 'At: ' + localtime + ' (UTC)')
+
         elif msg.startswith(PREFIX + 'spam'):
             # Need to figure how to store the numbers after username without it turning into a comment
             # Please check this
