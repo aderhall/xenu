@@ -135,7 +135,7 @@ def on_message(message):
     if str(message.author) == 'Adrian#7972':
         localtime = time.asctime( time.localtime(time.time()) )
         timezone = time.altzone
-        message = message.content
+        msg = message.content
         yield from client.send_message(message.channel, 'VictiBot is a chatbot for Team 1418\'s Discord server. Bot is currently running as ' + client.user.name + ' (ID ' + client.user.id + '). View on GitHub: https://github.com/frc1418/victibot')
         yield from client.send_message(client.get_channel('243737800992751617'), 'Adrian Said: ' + message + 'At: ' + localtime + ' (UTC)')
     # Only send back message if user that sent the triggering message isn't a bot
