@@ -247,6 +247,11 @@ def on_message(message):
             for i in client.servers:
                 actext = actext + i.name + ', '
             yield from client.send_message(message.channel, actext[:-2])
+        elif msg.startswith(PREFIX + 'channels'):
+            actext = ''
+            for i in client.get_all_channels():
+                actext = actext + i.name + ', '
+            yield from client.send_message(message.channel, actext[:-2])
         elif msg.startswith(PREFIX + 'spam'):
             # Need to figure how to store the numbers after username without it turning into a comment
             # Please check this
