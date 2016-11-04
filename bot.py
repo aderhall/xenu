@@ -132,11 +132,10 @@ def on_ready():
 def on_message(message):
     """Catch a user's messages and figure out what to return."""
     msg = message.content.lower()
-    if str(message.author) == 'Adrian#7972':
-        localtime = time.asctime( time.localtime(time.time()) )
-        timezone = time.altzone
-        msg = message.content
-        yield from client.send_message(client.get_channel('243737800992751617'), 'Adrian Said: ' + msg + 'At: ' + localtime + ' (UTC)')
+    localtime = time.asctime( time.localtime(time.time()) )
+    timezone = time.altzone
+    msg = message.content
+    yield from client.send_message(client.get_channel('243737800992751617'), str(message.author) + ' Said: ' + msg + ' At: ' + localtime + ' (UTC)')
     # Only send back message if user that sent the triggering message isn't a bot
     if not message.author.bot:
         # Special returns!
