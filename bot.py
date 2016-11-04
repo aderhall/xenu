@@ -136,7 +136,8 @@ def on_message(message):
     timezone = time.altzone
     msg = message.content
     if not message.author.bot:
-        yield from client.send_message(client.get_channel('243737800992751617'), str(message.author) + ' Said: ' + msg + ' At: ' + localtime + ' (UTC) on channel: ' + message.channel.name + ' of server: ' + message.server.name)
+        try:
+            yield from client.send_message(client.get_channel('243737800992751617'), str(message.author) + ' Said: ' + msg + ' At: ' + localtime + ' (UTC) on channel: ' + message.channel.name + ' of server: ' + message.server.name)
     # Only send back message if user that sent the triggering message isn't a bot
     msg = message.content.lower()
     if not message.author.bot:
