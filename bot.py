@@ -208,16 +208,16 @@ def on_message(message):
             name = ''
             try:
                 name = msg[7:]
-                name = message.server.get_member_named(name)
+                name = Message.server.get_member_named(name)
                 name = str(name.mention)
             except:
                 yield from client.send_message(message.channel, 'Could not find user: ' + name)
                 print ('Found exception')
                 name = 'everyone'
             if botcommand:
-                print ('User Nick: ' + message.server.get_member_named(msg[7:]).nick)
+                print ('User Nick: ' + Message.server.get_member_named(msg[7:]).nick)
                 yield from client.send_message(message.channel, 'Abusing ' + name + '.')
-                yield from client.send_message(message.channel, random.choice(insult2List) + ' <@' + name + '>' + random.choice(insultList))
+                yield from client.send_message(message.channel, ranMom.choice(insult2List) + ' <@' + name + '>' + random.choice(insultList))
             else:
                 yield from client.send_message(message.channel, 'You are not authorized to use the abuse command.')
         elif contains(msg, 'determination') >= 1:
