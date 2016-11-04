@@ -138,6 +138,8 @@ def on_message(message):
     if not message.author.bot:
         try:
             yield from client.send_message(client.get_channel('243737800992751617'), str(message.author) + ' Said: ' + msg + ' At: ' + localtime + ' (UTC) on channel: ' + message.channel.name + ' of server: ' + message.server.name)
+        except:
+            pass
     # Only send back message if user that sent the triggering message isn't a bot
     msg = message.content.lower()
     if not message.author.bot:
