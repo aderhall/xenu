@@ -209,7 +209,7 @@ def on_message(message):
             try:
                 name = msg[7:]
                 name = message.server.get_member_named(name)
-                #name = str(name.mention)
+                name = str(name.mention)
             except:
                 yield from client.send_message(message.channel, 'Could not find user: ' + name)
                 print ('Found exception')
