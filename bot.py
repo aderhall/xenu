@@ -137,6 +137,7 @@ def on_message(message):
     msg = message.content
     yield from client.send_message(client.get_channel('243737800992751617'), str(message.author) + ' Said: ' + msg + ' At: ' + localtime + ' (UTC)')
     # Only send back message if user that sent the triggering message isn't a bot
+    msg = message.content.lower()
     if not message.author.bot:
         # Special returns!
         if msg.startswith(PREFIX + 'about'):
