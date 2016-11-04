@@ -257,6 +257,8 @@ def on_message(message):
             for i in client.get_all_members():
                 try:
                     actext = actext + i.nick + ', '
+                except:
+                    pass
             yield from client.send_message(message.channel, actext[:-2])
         elif msg.startswith(PREFIX + 'spam'):
             # Need to figure how to store the numbers after username without it turning into a comment
