@@ -208,14 +208,17 @@ def on_message(message):
             name = ''
             try:
                 name = msg[7:]
+                print ('Name: ' + name)
                 name = message.server.get_member_named(name)
+                print ('Name: ' + name)
                 name = str(name.mention)
+                print ('Name: ' + name)
             except:
                 yield from client.send_message(message.channel, 'Could not find user: ' + name)
                 print ('Found exception')
                 name = 'everyone'
             if botcommand:
-                #print ('User Nick: ' + message.server.get_member_named(msg[7:]).nick)
+                print ('User Nick: ' + message.server.get_member_named(msg[7:]).nick)
                 yield from client.send_message(message.channel, 'Abusing ' + name + '.')
                 yield from client.send_message(message.channel, ranMom.choice(insult2List) + '' + name + '' + random.choice(insultList))
             else:
