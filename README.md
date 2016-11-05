@@ -1,6 +1,6 @@
 # VictiBot
 
-A simple chatbot for Vae Victis Team 1418's Discord server.
+A simple chatbot for Vae Victis Team 1418's Discord server (and a few others...).
 
 A work in progress. Feel free to suggest features in the issues.
 
@@ -13,9 +13,9 @@ A work in progress. Feel free to suggest features in the issues.
 
 ## Running
 1. Write the token to the contents of text file 'token.txt' in the victibot directory
-2. While in `victibot` directory, run:
+2. While in `victibot-1` directory, run:
 
-        python3 bot.py
+        python3 launch.py
 
 
 ## Contributors

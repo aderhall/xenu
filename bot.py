@@ -1,4 +1,16 @@
+# To run: from folder type python3 launch.py
+# Work In Progress: will give many debug messages as it runs
+
+# Must be run with python3 3.5 or higher
+# Works with tmux sessions (highly recommended)
+# Requires write access to local folder for persistent logs of some data
+# Will not work on a read-only filesystem
+# Can run as standard level user
+# Tested on Mac OSX El Capitan 10.11.5, Lubuntu 16.04 LTS 64 and Ubuntu 16.10 (GNU/Linux 4.8.0-22-generic x86_64)
+# Should in theory work on Windows computers as well
+
 # Import various libraries
+# Requires all of these except lxml for now, because the VPS hosting it has some problems with dpkg and tex-common (NOTE: I have identified these as part of the high-priority Ubuntu bug #1236951)
 import discord
 import asyncio
 import subprocess
@@ -72,19 +84,15 @@ messageIndex = {
     'stop': 'https://www.youtube.com/watch?v=2k0SmqbBIpQ'
 }
 
-helpMessage = """Welcome to VictiBot!
-              The commands are
-              !ping
-              !hello
-              !balloumoji
-              !about
-              !help
-              rickroll
-              xcq
-              it\'s time to stop
-              stop
-
-              Type one of these into the chat to try it out"""
+helpMessage = """```
+Welcome to VictiBot!
+Some sample commands:
+    !ping
+    !about
+    !hello
+There are a few more but not all are available on every server
+To display this message type !help
+```"""
 
 botCommanders = {
     'Adrian#7972' : True,
@@ -145,7 +153,7 @@ def on_message(message):
     if not message.author.bot:
         # Special returns!
         if msg.startswith(PREFIX + 'about'):
-            yield from client.send_message(message.channel, 'VictiBot is a chatbot for Team 1418\'s Discord server. Bot is currently running as ' + client.user.name + ' (ID ' + client.user.id + '). View on GitHub: https://github.com/frc1418/victibot')
+            yield from client.send_message(message.channel, 'VictiBot is a chatbot for Team 1418\'s Discord server. Bot is currently running as ' + client.user.name + ' (ID ' + client.user.id + '). View on GitHub: https://github.com/aderhall/victibot')
             yield from client.send_message(message.channel, 'Discuss VictiBot on VictiBot Hub: https://discord.gg/HmMMCzQ')
         elif msg.startswith('xkcd'):
             # Store the number/other content after the '!xkcd '.
@@ -199,38 +207,56 @@ def on_message(message):
         elif msg.startswith(PREFIX + 'wiki'):
             yield from client.send_message(message.channel, 'https://en.wikipedia.org/wiki/' + msg[6:])
         elif msg.startswith(PREFIX + 'abuse'):
-            # Get the name of the Abusee
+            # Check authorization of the user (necessary to avoid people spamming !abuse @everyone)
             try:
+                # Check to see if the user has the True override in the botCommanders object
                 botcommand = botCommanders[str(message.author)]
             except:
-                botcommand = false
+                # Default for now is no access
+                botcommand = False
+            # Mainly a debug function but also lets people know that this function has restrictions
             yield from client.send_message(message.channel, 'Checking authorization for ' + str(message.author))
+            # Name default is string to avoid errors for now
             name = ''
-            try:
-                name = msg[7:]
-                print ('Name: ' + name)
-                #name = message.server.get_member_named(name)
-                print ('Name: ' + str(name))
-                #name = str(name.mention)
-                print ('Name: ' + name)
-            except:
-                yield from client.send_message(message.channel, 'Could not find user: ' + name)
-                print ('Found exception')
-                name = 'everyone'
-            if botcommand:
+            # Only abuse if a member is mentioned, will incorporate a for loop for recursive abuse
+            if len(message.mentions) > 0:
+                # Try to get the mention string
                 try:
-                    print ('User Nick: ' + message.server.get_member_named(msg[7:]).nick)
+                    name = msg[7:]
+                    print ('Name: ' + name)
+                    # These are now obsolete but I may use them in the future
+                    #name = message.server.get_member_named(name)
+                    print ('Name: ' + str(name))
+                    #name = str(name.mention)
+                    print ('Name: ' + name)
                 except:
-                    pass
-                yield from client.send_message(message.channel, 'Abusing ' + name + '.')
-                yield from client.send_message(message.channel, random.choice(insult2List) + '' + name + '' + random.choice(insultList))
-            else:
-                yield from client.send_message(message.channel, 'You are not authorized to use the abuse command.')
+                    # Default to notice if user cannot be found, resorts to abusing everyone
+                    yield from client.send_message(message.channel, 'Could not find user: ' + name)
+                    print ('Found exception')
+                    name = '@everyone'
+                # Only send further messages if user is authorized
+                if botcommand:
+                    # Attempt to print the nick of a member containing the username (for debug purposes)
+                    try:
+                        print ('User Nick: ' + message.server.get_member_named(msg[7:]).nick)
+                    except:
+                        pass
+                    #Abuses the member specified (First line for debugging only)
+                    #yield from client.send_message(message.channel, 'Abusing ' + name + '.')
+                    yield from client.send_message(message.channel, random.choice(insult2List) + '' + name + '' + random.choice(insultList))
+                else:
+                    # Let the user know that the authorization failed
+                    yield from client.send_message(message.channel, 'You are not authorized to use the abuse command.')
+
+        # Undertale Reference
         elif contains(msg, 'determination') >= 1:
             yield from client.send_message(message.channel, 'Knowing the mouse might one day leave its hole and get the cheese... It fills you with determination.')
+        # Some commands (most of which will be included in the !unclean package)
         elif contains(msg, 'china') >= 1:
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=RDrfE9I8_hs')
+        # Direct Message to user with list of help commands (different from !about which is shown to all users)
         elif msg.startswith('!help'):
+            yield from client.send_message(message.channel, 'A list of basic commands has been sent to you via DM')
             yield from client.send_message(message.author, helpMessage)
         elif contains(msg, 'shrek'):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=cevWfNbRVpo')
@@ -251,53 +277,76 @@ def on_message(message):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=WOOw2yWMSfk')
         elif contains(msg, 'jurassic'):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=-w-58hQ9dLk')
+        # List all servers that the bot can see
         elif msg.startswith(PREFIX + 'servers'):
+            # Accumulation text variable
             actext = ''
+            # Recursively get name of each server
             for i in client.servers:
                 actext = actext + i.name + ', '
+            # Display a list of all servers (slicing to remove  final comma space)
             yield from client.send_message(message.channel, actext[:-2])
+        # Same as above but with channels
         elif msg.startswith(PREFIX + 'channels'):
             actext = ''
             for i in client.get_all_channels():
                 actext = actext + i.name + ', '
             yield from client.send_message(message.channel, actext[:-2])
+        # Same as above but with member nicknames
         elif msg.startswith(PREFIX + 'members'):
             actext = ''
             for i in client.get_all_members():
                 try:
+                    # Gets nick instead of name (nick is member nickname as string)
                     actext = actext + i.nick + ', '
                 except:
                     pass
             yield from client.send_message(message.channel, actext[:-2])
+        # Spams repeatedly up to ten times (restricted function)
         elif msg.startswith(PREFIX + 'spam'):
-            # Need to figure how to store the numbers after username without it turning into a comment
-            # Please check this
+            # Check authorization for use of this function
             try:
                 botcommand = botCommanders[str(message.author)]
             except:
+                # Default to blacklisting
                 botcommand = false
             yield from client.send_message(message.channel, 'Checking authorization for ' + str(message.author))
+            # Do the actions only if authorization succeeded
             if botcommand:
+                # Attempt to get the specified number of spam messages to send
                 if len(msg) > 6:
                     try:
                         times = int(msg[6:])
                     except:
+                        # Should only be called if the user inputs a non-integer value for the number of spam messages
+                        # Defaults to 5 messages
                         times = 5
+                # Recursion index starting at one to avoid user confusion (should probably fix this at some point)
                 count = 1
+                # Limit to 10 times
                 while (count <= times) and (count < 11):
+                    # The spam message (potential monty python reference could go here)
                     yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
-                    time.sleep(0.5)
+                    # Wait without blocking the async event loop
+                    asyncio.sleep(0.5)
+                    # Standard incrementation of count
                     count += 1
             else:
+                # Let the user know that the authorization failed
                 yield from client.send_message(message.channel, 'You are not authorized to use this function')
         else:
             # Respond if the message has a basic, static response.
-            # TODO: Apparently 'yield from' has been replaced in py3 with 'yield from'.
-            # Implement this change.
+            # Attempt to retrieve response from a dictionary
+            # Note: I know very well that this is not the most efficient way to respond to commands
+            # It is not very async-style and it ends up doing quite a lot at a very high level even when messages with no command are given
+            # However, certain features, such as the log and the more general contains() response are much simpler in this structure
+            # I do not plan to change this at the moment
+            # TODO: Add a new dictionary for commands to respond to messages containing the keyword
             try:
                 # Prefix commands take priority over standard text commands
                 yield from client.send_message(message.channel, prefixMessageIndex[(msg)])
-                print ('Prefix Done')
+                # Debugging purposes only
+                #print ('Prefix Done')
             except:
                 try:
                     yield from client.send_message(message.channel, messageIndex[msg])
@@ -306,20 +355,21 @@ def on_message(message):
 
 
 @client.async_event
+# Respond on a new member joining
 def on_member_join(member):
     yield from client.send_message(member.server.default_channel, '**Welcome ' + member.mention + ' to the ' + member.server.name + ' server!**')
 
-
+# Respond on member leaving
 @client.async_event
 def on_member_remove(member):
     yield from client.send_message(member.server.default_channel, member.name + ' left the server :frowning: RIP ' + member.name)
 
 
-# Get token from token.txt.
+# Get token from token.txt
 with open('token.txt', 'r') as token_file:
-    # Parse into a string, and get rid of trailing newlines.
+    # Parse into a string, and get rid of trailing newlines
     token = token_file.read().replace('\n', '')
-
+# It is only fair that whoever is running the bot should know their own token
 print('Starting with token ' + token + '...')
 
 # Start bot!
