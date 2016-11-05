@@ -153,7 +153,7 @@ def on_message(message):
     if not message.author.bot:
         # Special returns!
         if msg.startswith(PREFIX + 'about'):
-            yield from client.send_message(message.channel, 'VictiBot is a chatbot for Team 1418\'s Discord server. Bot is currently running as ' + client.user.name + ' (ID ' + client.user.id + '). View on GitHub: https://github.com/aderhall/victibot')
+            yield from client.send_message(message.channel, 'VictiBot is a chatbot for Team 1418\'s Discord server. Bot is currently running as ' + client.user.name + ' (ID ' + client.user.id + '). View on GitHub: https://github.com/aderhall/victibot-1')
             yield from client.send_message(message.channel, 'Discuss VictiBot on VictiBot Hub: https://discord.gg/HmMMCzQ')
         elif msg.startswith('xkcd'):
             # Store the number/other content after the '!xkcd '.
