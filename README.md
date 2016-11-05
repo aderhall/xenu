@@ -12,7 +12,7 @@ A work in progress. Feel free to suggest features in the issues.
 
 
 ## Running
-1. Write the token to the contents of text file 'token.txt' in the victibot directory
+1. Write the token to the contents of text file 'token.txt' in the `victibot-1` directory
 2. While in `victibot-1` directory, run:
 
         python3 launch.py
