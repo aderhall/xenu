@@ -223,7 +223,7 @@ def on_message(message):
                 except:
                     pass
                 yield from client.send_message(message.channel, 'Abusing ' + name + '.')
-                yield from client.send_message(message.channel, ranMom.choice(insult2List) + '' + name + '' + random.choice(insultList))
+                yield from client.send_message(message.channel, random.choice(insult2List) + '' + name + '' + random.choice(insultList))
             else:
                 yield from client.send_message(message.channel, 'You are not authorized to use the abuse command.')
         elif contains(msg, 'determination') >= 1:
