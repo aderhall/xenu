@@ -254,7 +254,7 @@ def on_message(message):
         # Get wikipedia link
         # TODO: get lxml working to display the overview from the page to the output
         elif msg.startswith(PREFIX + 'wiki'):
-            yield from client.send_message(message.channel, 'https://en.wikipedia.org/wiki/' + msg[6:])
+            yield from client.send_message(message.channel, 'https://en.wikipedia.org/wiki/' + replace(msg[6:], ' ', '_'))
         # Abuse people
         elif msg.startswith(PREFIX + 'abuse'):
             # Check authorization of the user (necessary to avoid people spamming !abuse @everyone)
