@@ -111,7 +111,8 @@ To display this message type !help
 
 botCommanders = {
     'Adrian#7972' : True,
-    'MoonMoon#9830' : True
+    'MoonMoon#9830' : True,
+    'Timmy#6089' : True
 }
 # Add as many insults as you want.
 insultList = [
