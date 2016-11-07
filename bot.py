@@ -249,12 +249,12 @@ def on_message(message):
         elif message.content.isupper() and len(message.content) > 5:
             # if someone sends a message in all caps, respond with a friendly reminder
             yield from client.send_message(message.channel, "Did that _really_ need to be in all caps?")
+        elif msg.startswith(PREFIX + 'wikihow'):
+            yield from client.send_message(message.channel, 'https://wikihow.com/' + replace(msg[9:], ' ', '-'))
         # Get wikipedia link
         # TODO: get lxml working to display the overview from the page to the output
         elif msg.startswith(PREFIX + 'wiki'):
             yield from client.send_message(message.channel, 'https://en.wikipedia.org/wiki/' + msg[6:])
-        elif msg.startswith(PREFIX + 'wikihow'):
-            yield from client.send_message(message.channel, 'https://wikihow.com/' + replace(msg, ' ', '-'))
         # Abuse people
         elif msg.startswith(PREFIX + 'abuse'):
             # Check authorization of the user (necessary to avoid people spamming !abuse @everyone)
