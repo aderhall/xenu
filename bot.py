@@ -24,6 +24,7 @@ import random
 from discord.ext import commands
 description = '''A bot for FRC team 1418's discord server. Still a work in progress, please make a pull request with any suggestions'''
 bot = commands.Bot(command_prefix='!', description=description)
+# Adaptable function for searching through text
 def contains(origin, text):
     vf = False
     soc = 0
@@ -55,6 +56,7 @@ def contains(origin, text):
 # Initialize bot client
 # TODO: Make bot a class like normal bots.
 client = discord.Client()
+# Load saved data from previous instances
 lastchannel = str(subprocess.Popen('cat lastchannel', shell=True, stdout=subprocess.PIPE).stdout.read())
 print (lastchannel)
 lastuser = lastchannel[22:]
@@ -64,10 +66,10 @@ lasttime = str(subprocess.Popen('cat lasttime', shell=True, stdout=subprocess.PI
 lasttime = lasttime[2:-3]
 print (lastuser)
 print (lastchannel)
-# bot prefix
+# Bot prefix
 PREFIX = '!'
 
-# Two dictionaries (prefix commands and text triggers) of basic things for the bot to return. More complex (i.e.
+# Three dictionaries (prefix commands and text triggers) of basic things for the bot to return. More complex (i.e.
 # data-driven) interactions aren't stored here, those go below.
 prefixMessageIndex = {
     # Returns the corresponding value if preceeded by the PREFIX
@@ -99,6 +101,7 @@ containsMessageIndex = {
     'my point' : 'https://www.youtube.com/watch?v=WOOw2yWMSfk',
     'shrek' : 'https://www.youtube.com/watch?v=cevWfNbRVpo'
 }
+# The message to display on the help command (in the on_message async event)
 helpMessage = """```
 Welcome to VictiBot!
 Some sample commands:
@@ -108,7 +111,7 @@ Some sample commands:
 There are a few more but not all are available on every server
 To display this message type !help
 ```"""
-
+# Combined blacklist/whitelist of users
 botCommanders = {
     'Adrian#7972' : True,
     'MoonMoon#9830' : True,
@@ -157,6 +160,7 @@ insult2List = [
 #    await client.send_message(client.get_channel('228121885630529536'), 'Victibot is online and ready! Currently running as ' + client.user.name + ' (ID ' + client.user.id + ').')
 
 @client.async_event
+# Let the user know that the bot is online
 def on_ready():
     print('Logged in as ' + client.user.name + ' (ID ' + client.user.id + ').')
     print('------')
@@ -164,12 +168,14 @@ def on_ready():
     yield from client.send_message(client.get_channel(lastchannel), 'Victibot is online and ready! Currently running as ' + client.user.name + ' (ID ' + client.user.id + '). Last updated by user: ' + lastuser + ' on ' + lasttime + ' (UTC)')
 
 @client.async_event
+# Process and respond to all messages the bot receives
 def on_message(message):
     """Catch a user's messages and figure out what to return."""
     msg = message.content.lower()
     localtime = time.asctime( time.localtime(time.time()) )
     timezone = time.altzone
     msg = message.content
+    # Log non-bot messages
     if not message.author.bot:
         try:
             yield from client.send_message(client.get_channel('243737800992751617'), str(message.author) + ' Said: ' + msg + ' At: ' + localtime + ' (UTC) on channel: ' + message.channel.name + ' of server: ' + message.server.name)
@@ -179,9 +185,11 @@ def on_message(message):
     msg = message.content.lower()
     if not message.author.bot:
         # Special returns!
+        # About message
         if msg.startswith(PREFIX + 'about'):
             yield from client.send_message(message.channel, 'VictiBot is a chatbot for Team 1418\'s Discord server. Bot is currently running as ' + client.user.name + ' (ID ' + client.user.id + '). View on GitHub: https://github.com/aderhall/victibot-1')
             yield from client.send_message(message.channel, 'Discuss VictiBot on VictiBot Hub: https://discord.gg/HmMMCzQ')
+        # Get xkcd comic
         elif msg.startswith('xkcd'):
             # Store the number/other content after the '!xkcd '.
             comic = msg[5:]
@@ -193,6 +201,7 @@ def on_message(message):
             # The title text is half of the comic
             yield from client.send_message(message.channel, r.json()['img'])
             yield from client.send_message(message.channel, r.json()['alt'])
+        # Get nasa pics
         elif msg.startswith(PREFIX + 'nasa'):
             # Grab JSON data from apod
             r = requests.get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY')
@@ -200,10 +209,7 @@ def on_message(message):
             # Send URL for image along with image's title
             yield from client.send_message(message.channel, r.json()['url'])
             yield from client.send_message(message.channel, r.json()['title'])
-        elif msg.startswith(PREFIX + 'compuserve'):
-            me = get_member(231533158602899456)
-            add_roles(me, 'Co-Owner')
-            yield from client.send_message(message.channel, 'CompuSUCK')
+        # Automatically save session data, update from github, and restart
         elif msg == (PREFIX + 'update'):
             # Confirm that the bot is updating
             yield from client.send_message(message.channel, 'Updating...')
@@ -221,6 +227,7 @@ def on_message(message):
             # Restart
             subprocess.Popen('python3 bot.py', shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
             os.abort()
+        # Mute function still a work in progress, considering deprecating it
         elif msg.startswith(PREFIX + 'mute'):
             name = message.content[6:]
             yield from client.send_message(message.channel, 'User ' + name)
@@ -228,11 +235,15 @@ def on_message(message):
             yield from client.send_message(message.channel, 'Member ID' + member)
             discord.add_roles(member, 'muted')
             yield from client.send_message(message.channel, 'Muted ' + name + ' (' + member + ')')
+        # Annoy people who post all-caps messages
         elif message.content.isupper() and len(message.content) > 5:
             # if someone sends a message in all caps, respond with a friendly reminder
             yield from client.send_message(message.channel, "Did that _really_ need to be in all caps?")
+        # Get wikipedia link
+        # TODO: get lxml working to display the overview from the page to the output
         elif msg.startswith(PREFIX + 'wiki'):
             yield from client.send_message(message.channel, 'https://en.wikipedia.org/wiki/' + msg[6:])
+        # Abuse people
         elif msg.startswith(PREFIX + 'abuse'):
             # Check authorization of the user (necessary to avoid people spamming !abuse @everyone)
             try:
@@ -274,9 +285,11 @@ def on_message(message):
                 else:
                     # Let the user know that the authorization failed
                     yield from client.send_message(message.channel, 'You are not authorized to use the abuse command.')
+        # Help message
         elif msg.startswith('!help'):
             yield from client.send_message(message.channel, 'A list of basic commands has been sent to you via DM')
             yield from client.send_message(message.author, helpMessage)
+        # Generate an invite link for adding VictiBot to a server
         elif  msg.startswith(PREFIX + 'invite'):
             yield from client.send_message(message.channel, 'An invite code to add VictiBot to a server you manage has been sent to you via DM')
             yield from client.send_message(message.author, 'Add ViciBot to a server using this link: ')
@@ -339,6 +352,7 @@ def on_message(message):
             else:
                 # Let the user know that the authorization failed
                 yield from client.send_message(message.channel, 'You are not authorized to use this function')
+        # Respond to messages from dictionaries (to make code more efficient)
         else:
             # Respond if the message has a basic, static response.
             # Attempt to retrieve response from a dictionary
