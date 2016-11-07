@@ -56,7 +56,7 @@ def contains(origin, text):
 def replace(origin, char, newchar):
     actext = ''
     for thechar in origin:
-        if char == char:
+        if thechar == char:
             actext = actext + newchar
         else:
             actext = actext + thechar
