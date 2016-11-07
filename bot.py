@@ -53,6 +53,15 @@ def contains(origin, text):
             loop = False
             vf = True
     return soc
+def replace(origin, char, newchar):
+    actext = ''
+    for thechar in origin:
+        if char == char:
+            actext = actext + newchar
+        else:
+            actext = actext + thechar
+    return actext
+
 # Initialize bot client
 # TODO: Make bot a class like normal bots.
 client = discord.Client()
@@ -244,6 +253,8 @@ def on_message(message):
         # TODO: get lxml working to display the overview from the page to the output
         elif msg.startswith(PREFIX + 'wiki'):
             yield from client.send_message(message.channel, 'https://en.wikipedia.org/wiki/' + msg[6:])
+        elif msg.startswith(PREFIX + 'wikihow'):
+            yield from client.send_message(message.channel, 'https://wikihow.com/' + replace(msg, ' ', '-'))
         # Abuse people
         elif msg.startswith(PREFIX + 'abuse'):
             # Check authorization of the user (necessary to avoid people spamming !abuse @everyone)
