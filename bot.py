@@ -83,7 +83,22 @@ messageIndex = {
     'it\'s time to stop': 'https://www.youtube.com/watch?v=2k0SmqbBIpQ',
     'stop': 'https://www.youtube.com/watch?v=2k0SmqbBIpQ'
 }
-
+containsMessageIndex = {
+    # Returns the corresponding text if it contains the keyword unless it interferes with the pMI or mI
+    'determination' : 'Knowing the mouse might one day leave its hole and get the cheese... It fills you with determination.',
+    'china' : 'https://www.youtube.com/watch?v=RDrfE9I8_hs',
+    'tunak' : 'https://www.youtube.com/watch?v=vTIIMJ9tUc8',
+    'tokyo' : 'https://www.youtube.com/watch?v=XxK54P_4PiA',
+    'ghoul' : 'https://www.youtube.com/watch?v=XxK54P_4PiA',
+    'nye' : 'https://www.youtube.com/watch?v=26OE9Bq-lr8',
+    'yas' : 'https://www.youtube.com/watch?v=26OE9Bq-lr8',
+    'taco' : 'https://www.youtube.com/watch?v=vZkjRVjge0g',
+    'taco bell' : 'https://www.youtube.com/watch?v=vZkjRVjge0g',
+    'senpai' : 'NOTICE ME SENPAI!!!! \nhttp://vignette4.wikia.nocookie.net/yandere-simulator/images/e/ea/Senpai_Sep18.png/revision/latest?cb=20150920021049',
+    'jurassic' : 'https://www.youtube.com/watch?v=-w-58hQ9dLk',
+    'my point' : 'https://www.youtube.com/watch?v=WOOw2yWMSfk',
+    'shrek' : 'https://www.youtube.com/watch?v=cevWfNbRVpo'
+}
 helpMessage = """```
 Welcome to VictiBot!
 Some sample commands:
@@ -258,36 +273,9 @@ def on_message(message):
                 else:
                     # Let the user know that the authorization failed
                     yield from client.send_message(message.channel, 'You are not authorized to use the abuse command.')
-
-        # Undertale Reference
-        elif contains(msg, 'determination') >= 1:
-            yield from client.send_message(message.channel, 'Knowing the mouse might one day leave its hole and get the cheese... It fills you with determination.')
-        # Some commands (most of which will be included in the !unclean package)
-        elif contains(msg, 'china') >= 1:
-            yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=RDrfE9I8_hs')
-        # Direct Message to user with list of help commands (different from !about which is shown to all users)
         elif msg.startswith('!help'):
             yield from client.send_message(message.channel, 'A list of basic commands has been sent to you via DM')
             yield from client.send_message(message.author, helpMessage)
-        elif contains(msg, 'shrek'):
-            yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=cevWfNbRVpo')
-        elif contains(msg, 'nye') or contains(msg, 'yas'):
-            yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=26OE9Bq-lr8')
-        elif contains(msg, 'tokyo') or contains(msg, 'ghoul'):
-            yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=XxK54P_4PiA')
-        elif contains(msg, 'taco') or contains(msg, 'taco bell'):
-            yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=vZkjRVjge0g')
-        elif contains(msg, 'tunak'):
-            yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=vTIIMJ9tUc8')
-        elif contains(msg, 'tunak'):
-            yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=sPbtlFVV3X0')
-        elif contains(msg, 'senpai'):
-            yield from client.send_message(message.channel, 'http://vignette4.wikia.nocookie.net/yandere-simulator/images/e/ea/Senpai_Sep18.png/revision/latest?cb=20150920021049')
-            yield from client.send_message(message.channel, 'NOTICE ME SENPAI!')
-        elif contains(msg, 'my point'):
-            yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=WOOw2yWMSfk')
-        elif contains(msg, 'jurassic'):
-            yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=-w-58hQ9dLk')
         elif  msg.startswith(PREFIX + 'invite'):
             yield from client.send_message(message.channel, 'An invite code to add VictiBot to a server you manage has been sent to you via DM')
             yield from client.send_message(message.author, 'Add ViciBot to a server using this link: ')
@@ -367,7 +355,9 @@ def on_message(message):
                 try:
                     yield from client.send_message(message.channel, messageIndex[msg])
                 except:
-                    pass
+                    for key, value in containsMessageIndex.items():
+                        if contains(msg, key) >= 1:
+                            yield from client.send_message(message.channel, value)
 
 
 @client.async_event
