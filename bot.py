@@ -209,6 +209,7 @@ def on_message(message):
             # Send URL for image along with image's title
             yield from client.send_message(message.channel, r.json()['url'])
             yield from client.send_message(message.channel, r.json()['title'])
+            yield from client.send_message(message.channel, 'Explanation' + r.json()['explanation'])
         # Automatically save session data, update from github, and restart
         elif msg == (PREFIX + 'update'):
             # Confirm that the bot is updating
