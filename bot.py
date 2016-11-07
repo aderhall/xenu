@@ -288,6 +288,11 @@ def on_message(message):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=WOOw2yWMSfk')
         elif contains(msg, 'jurassic'):
             yield from client.send_message(message.channel, 'https://www.youtube.com/watch?v=-w-58hQ9dLk')
+        elif  msg.startswith(PREFIX + 'invite'):
+            yield from client.send_message(message.channel, 'An invite code to add VictiBot to a server you manage has been sent to you via DM')
+            yield from client.send_message(message.author, 'Add ViciBot to a server using this link: ')
+            yield from client.send_message(message.author, 'https://discordapp.com/oauth2/authorize?client_id=231595610682294272&scope=bot&permissions=0')
+            yield from client.send_message(message.author, 'Note: You can only add VictiBot to a server if you have the \'Manage server\' privilage on it.')
         # List all servers that the bot can see
         elif msg.startswith(PREFIX + 'servers'):
             # Accumulation text variable
