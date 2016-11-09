@@ -108,7 +108,8 @@ containsMessageIndex = {
     'senpai' : 'NOTICE ME SENPAI!!!! \nhttp://vignette4.wikia.nocookie.net/yandere-simulator/images/e/ea/Senpai_Sep18.png/revision/latest?cb=20150920021049',
     'jurassic' : 'https://www.youtube.com/watch?v=-w-58hQ9dLk',
     'my point' : 'https://www.youtube.com/watch?v=WOOw2yWMSfk',
-    'shrek' : 'https://www.youtube.com/watch?v=cevWfNbRVpo'
+    'shrek' : 'https://www.youtube.com/watch?v=cevWfNbRVpo',
+    'america' : 'America is dead. All hail Rumpland.'
 }
 # The message to display on the help command (in the on_message async event)
 helpMessage = """```
