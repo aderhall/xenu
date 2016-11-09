@@ -109,7 +109,8 @@ containsMessageIndex = {
     'jurassic' : 'https://www.youtube.com/watch?v=-w-58hQ9dLk',
     'my point' : 'https://www.youtube.com/watch?v=WOOw2yWMSfk',
     'shrek' : 'https://www.youtube.com/watch?v=cevWfNbRVpo',
-    'america' : 'America is dead. All hail Rumpland.'
+    'america' : 'America is dead. All hail Rumpland.',
+    'rump' : 'FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCKFUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCKFUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK https://www.youtube.com/watch?v=AtbMnixO2nc FUCK FUCK FUCK FUCK FUCK'
 }
 # The message to display on the help command (in the on_message async event)
 helpMessage = """```
