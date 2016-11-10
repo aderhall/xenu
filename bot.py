@@ -259,7 +259,7 @@ def on_message(message):
         elif message.content.isupper() and len(message.content) > 5:
             # if someone sends a message in all caps, respond with a friendly reminder
             returnMsg = ("Did that _really_ need to be in all caps?")
-            messageIsClean = True
+            
         elif msg.startswith(PREFIX + 'wikihow'):
             returnMsg = ('https://wikihow.com/' + replace(msg[9:], ' ', '-'))
         # Get wikipedia link
