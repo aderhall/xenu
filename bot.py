@@ -110,7 +110,7 @@ containsMessageIndex = {
     'my point' : 'https://www.youtube.com/watch?v=WOOw2yWMSfk',
     'shrek' : 'https://www.youtube.com/watch?v=cevWfNbRVpo',
     'america' : 'America is dead. All hail Rumpland.',
-    'rump' : 'FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCKFUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCKFUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK https://www.youtube.com/watch?v=AtbMnixO2nc FUCK FUCK FUCK FUCK FUCK'
+    'rump' : 'FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK https://www.youtube.com/watch?v=AtbMnixO2nc FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK RUMP'
 }
 # The message to display on the help command (in the on_message async event)
 helpMessage = """```
@@ -194,7 +194,7 @@ def on_message(message):
             pass
     # Only send back message if user that sent the triggering message isn't a bot
     msg = message.content.lower()
-    if not message.author.bot:
+    if (not message.author.bot) and (not message.server.name == 'Team 1418'):
         # Special returns!
         # About message
         if msg.startswith(PREFIX + 'about'):
