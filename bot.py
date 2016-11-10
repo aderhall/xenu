@@ -126,7 +126,8 @@ To display this message type !help
 botCommanders = {
     'Adrian#7972' : True,
     'MoonMoon#9830' : True,
-    'Timmy#6089' : True
+    'Timmy#6089' : True,
+    'kirissen3319#5432' : True
 }
 # Add as many insults as you want.
 insultList = [
@@ -259,7 +260,7 @@ def on_message(message):
         elif message.content.isupper() and len(message.content) > 5:
             # if someone sends a message in all caps, respond with a friendly reminder
             returnMsg = ("Did that _really_ need to be in all caps?")
-            
+
         elif msg.startswith(PREFIX + 'wikihow'):
             returnMsg = ('https://wikihow.com/' + replace(msg[9:], ' ', '-'))
         # Get wikipedia link
