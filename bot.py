@@ -182,6 +182,7 @@ def on_ready():
 # Process and respond to all messages the bot receives
 def on_message(message):
     """Catch a user's messages and figure out what to return."""
+    foundNoCommands = False
     msg = message.content.lower()
     localtime = time.asctime( time.localtime(time.time()) )
     timezone = time.altzone
@@ -368,6 +369,7 @@ def on_message(message):
                 yield from client.send_message(message.channel, 'You are not authorized to use this function')
         # Respond to messages from dictionaries (to make code more efficient)
         else:
+            foundNoCommands = True
             # Respond if the message has a basic, static response.
             # Attempt to retrieve response from a dictionary
             # Note: I know very well that this is not the most efficient way to respond to commands
@@ -387,7 +389,7 @@ def on_message(message):
                     for key, value in containsMessageIndex.items():
                         if contains(msg, key) >= 1:
                             yield from client.send_message(message.channel, value)
-    elif message.server.name == 'Team 1418' and (not message.author.bot):
+    elif message.server.name == 'Team 1418' and (not message.author.bot) and (not foundNoCommands):
         yield from client.send_message(message.channel, 'Sorry, the VictiBot command you are searching for is _disabled_ on this server. Please use it somewhere else')
 
 @client.async_event
