@@ -188,6 +188,7 @@ def on_message(message):
     timezone = time.altzone
     msg = message.content
     returnMsg = ''
+    messageIsClean = False
     # Log non-bot messages
     if not message.author.bot:
         try:
@@ -203,6 +204,7 @@ def on_message(message):
         if msg.startswith(PREFIX + 'about'):
             returnMsg = ('VictiBot is a chatbot for Team 1418\'s Discord server. Bot is currently running as ' + client.user.name + ' (ID ' + client.user.id + '). View on GitHub: https://github.com/aderhall/victibot-1')
             returnMsg = returnMsg + '\n' + ('Discuss VictiBot on VictiBot Hub: https://discord.gg/HmMMCzQ')
+            messageIsClean = True
         # Get xkcd comic
         elif msg.startswith('xkcd'):
             # Store the number/other content after the '!xkcd '.
@@ -215,6 +217,7 @@ def on_message(message):
             # The title text is half of the comic
             returnMsg = (r.json()['img'])
             returnMsg = returnMsg + '\n' + (r.json()['alt'])
+            messageIsClean = True
         # Get nasa pics
         elif msg.startswith(PREFIX + 'nasa'):
             # Grab JSON data from apod
@@ -224,10 +227,11 @@ def on_message(message):
             returnMsg = (r.json()['url'])
             returnMsg = returnMsg + '\n' + (r.json()['title'])
             returnMsg = returnMsg + '\n' + ('Explanation: ' + r.json()['explanation'])
+            messageIsClean = True
         # Automatically save session data, update from github, and restart
         elif msg == (PREFIX + 'update'):
             # Confirm that the bot is updating
-            returnMsg = ('Updating...')
+            yield from client.send_message(message.channel, 'Updating...')
             localtime = time.asctime( time.localtime(time.time()) )
             timezone = time.altzone
             print ('Time and Date: ' + localtime + ' UTC + (' + str(timezone) + ')')
@@ -238,10 +242,11 @@ def on_message(message):
             print (str(subprocess.Popen('touch lastchannel && echo "' + str(message.channel.id) + '" | cat > lastchannel && echo "' + str(message.author) + '" cat >> lastchannel', shell=True, stdout=subprocess.PIPE).stdout.read()))
             print (str(subprocess.Popen('touch lasttime && echo "' + localtime + '" | cat > lasttime', shell=True, stdout=subprocess.PIPE).stdout.read()))
             print ('Local Time: ' + localtime)
-            returnMsg = returnMsg + '\n' + ('Update Successful! Restarting...')
+            yield from client.send_message(message.channel, 'Update Successful! Restarting...')
             # Restart
             subprocess.Popen('python3 bot.py', shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
             os.abort()
+            messageIsClean = True
         # Mute function still a work in progress, considering deprecating it
         elif msg.startswith(PREFIX + 'mute'):
             name = message.content[6:]
@@ -254,6 +259,7 @@ def on_message(message):
         elif message.content.isupper() and len(message.content) > 5:
             # if someone sends a message in all caps, respond with a friendly reminder
             returnMsg = ("Did that _really_ need to be in all caps?")
+            messageIsClean = True
         elif msg.startswith(PREFIX + 'wikihow'):
             returnMsg = ('https://wikihow.com/' + replace(msg[9:], ' ', '-'))
         # Get wikipedia link
@@ -306,12 +312,14 @@ def on_message(message):
         elif msg.startswith('!help'):
             returnMsg = ('A list of basic commands has been sent to you via DM')
             yield from client.send_message(message.author, helpMessage)
+            messageIsClean = True
         # Generate an invite link for adding VictiBot to a server
         elif  msg.startswith(PREFIX + 'invite'):
             returnMsg = ('An invite code to add VictiBot to a server you manage has been sent to you via DM')
             yield from client.send_message(message.author, 'Add ViciBot to a server using this link: ')
             yield from client.send_message(message.author, 'https://discordapp.com/oauth2/authorize?client_id=231595610682294272&scope=bot&permissions=0')
             yield from client.send_message(message.author, 'Note: You can only add VictiBot to a server if you have the \'Manage server\' privilege on it.')
+            messageIsClean = True
         # List all servers that the bot can see
         elif msg.startswith(PREFIX + 'servers'):
             # Accumulation text variable
@@ -392,7 +400,7 @@ def on_message(message):
                     for key, value in containsMessageIndex.items():
                         if contains(msg, key) >= 1:
                             returnMsg = (value)
-    if (not message.server.name == 'Team 1418'):
+    if (not message.server.name == 'Team 1418') or messageIsClean:
         yield from client.send_message(message.channel, returnMsg)
     elif not foundNoCommands:
         yield from client.send_message(message.channel, 'Sorry, but the VictiBot command you have requested has been _disabled_ on this server. Please try somewhere else.')
