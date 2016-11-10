@@ -187,6 +187,7 @@ def on_message(message):
     localtime = time.asctime( time.localtime(time.time()) )
     timezone = time.altzone
     msg = message.content
+    returnMsg = ''
     # Log non-bot messages
     if not message.author.bot:
         try:
@@ -195,13 +196,13 @@ def on_message(message):
             pass
     # Only send back message if user that sent the triggering message isn't a bot
     msg = message.content.lower()
-    if (not message.author.bot) and (not message.server.name == 'Team 1418'):
+    if (not message.author.bot):
         foundNoCommands = False
         # Special returns!
         # About message
         if msg.startswith(PREFIX + 'about'):
-            yield from client.send_message(message.channel, 'VictiBot is a chatbot for Team 1418\'s Discord server. Bot is currently running as ' + client.user.name + ' (ID ' + client.user.id + '). View on GitHub: https://github.com/aderhall/victibot-1')
-            yield from client.send_message(message.channel, 'Discuss VictiBot on VictiBot Hub: https://discord.gg/HmMMCzQ')
+            returnMsg = ('VictiBot is a chatbot for Team 1418\'s Discord server. Bot is currently running as ' + client.user.name + ' (ID ' + client.user.id + '). View on GitHub: https://github.com/aderhall/victibot-1')
+            returnMsg = returnMsg + '\n' + ('Discuss VictiBot on VictiBot Hub: https://discord.gg/HmMMCzQ')
         # Get xkcd comic
         elif msg.startswith('xkcd'):
             # Store the number/other content after the '!xkcd '.
@@ -212,21 +213,21 @@ def on_message(message):
 
             # Send the URL of the image from the JSON fetched above.
             # The title text is half of the comic
-            yield from client.send_message(message.channel, r.json()['img'])
-            yield from client.send_message(message.channel, r.json()['alt'])
+            returnMsg = (r.json()['img'])
+            returnMsg = returnMsg + '\n' + (r.json()['alt'])
         # Get nasa pics
         elif msg.startswith(PREFIX + 'nasa'):
             # Grab JSON data from apod
             r = requests.get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY')
 
             # Send URL for image along with image's title
-            yield from client.send_message(message.channel, r.json()['url'])
-            yield from client.send_message(message.channel, r.json()['title'])
-            yield from client.send_message(message.channel, 'Explanation: ' + r.json()['explanation'])
+            returnMsg = (r.json()['url'])
+            returnMsg = returnMsg + '\n' + (r.json()['title'])
+            returnMsg = returnMsg + '\n' + ('Explanation: ' + r.json()['explanation'])
         # Automatically save session data, update from github, and restart
         elif msg == (PREFIX + 'update'):
             # Confirm that the bot is updating
-            yield from client.send_message(message.channel, 'Updating...')
+            returnMsg = ('Updating...')
             localtime = time.asctime( time.localtime(time.time()) )
             timezone = time.altzone
             print ('Time and Date: ' + localtime + ' UTC + (' + str(timezone) + ')')
@@ -237,28 +238,28 @@ def on_message(message):
             print (str(subprocess.Popen('touch lastchannel && echo "' + str(message.channel.id) + '" | cat > lastchannel && echo "' + str(message.author) + '" cat >> lastchannel', shell=True, stdout=subprocess.PIPE).stdout.read()))
             print (str(subprocess.Popen('touch lasttime && echo "' + localtime + '" | cat > lasttime', shell=True, stdout=subprocess.PIPE).stdout.read()))
             print ('Local Time: ' + localtime)
-            yield from client.send_message(message.channel, 'Update Successful! Restarting...')
+            returnMsg = returnMsg + '\n' + ('Update Successful! Restarting...')
             # Restart
             subprocess.Popen('python3 bot.py', shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
             os.abort()
         # Mute function still a work in progress, considering deprecating it
         elif msg.startswith(PREFIX + 'mute'):
             name = message.content[6:]
-            yield from client.send_message(message.channel, 'User ' + name)
+            returnMsg = ('User ' + name)
             member = discord.Server.get_member_named(discord.Server.members, 'GeneralGreat')
-            yield from client.send_message(message.channel, 'Member ID' + member)
+            returnMsg = returnMsg + '\n' + ('Member ID' + member)
             discord.add_roles(member, 'muted')
-            yield from client.send_message(message.channel, 'Muted ' + name + ' (' + member + ')')
+            returnMsg = returnMsg + '\n' + ('Muted ' + name + ' (' + member + ')')
         # Annoy people who post all-caps messages
         elif message.content.isupper() and len(message.content) > 5:
             # if someone sends a message in all caps, respond with a friendly reminder
-            yield from client.send_message(message.channel, "Did that _really_ need to be in all caps?")
+            returnMsg = ("Did that _really_ need to be in all caps?")
         elif msg.startswith(PREFIX + 'wikihow'):
-            yield from client.send_message(message.channel, 'https://wikihow.com/' + replace(msg[9:], ' ', '-'))
+            returnMsg = ('https://wikihow.com/' + replace(msg[9:], ' ', '-'))
         # Get wikipedia link
         # TODO: get lxml working to display the overview from the page to the output
         elif msg.startswith(PREFIX + 'wiki'):
-            yield from client.send_message(message.channel, 'https://en.wikipedia.org/wiki/' + replace(msg[6:], ' ', '_'))
+            returnMsg = ('https://en.wikipedia.org/wiki/' + replace(msg[6:], ' ', '_'))
         # Abuse people
         elif msg.startswith(PREFIX + 'abuse'):
             # Check authorization of the user (necessary to avoid people spamming !abuse @everyone)
@@ -269,7 +270,7 @@ def on_message(message):
                 # Default for now is no access
                 botcommand = False
             # Mainly a debug function but also lets people know that this function has restrictions
-            yield from client.send_message(message.channel, 'Checking authorization for ' + str(message.author))
+            returnMsg = ('Checking authorization for ' + str(message.author))
             # Name default is string to avoid errors for now
             name = ''
             # Only abuse if a member is mentioned, will incorporate a for loop for recursive abuse
@@ -285,7 +286,7 @@ def on_message(message):
                     print ('Name: ' + name)
                 except:
                     # Default to notice if user cannot be found, resorts to abusing everyone
-                    yield from client.send_message(message.channel, 'Could not find user: ' + name)
+                    returnMsg = ('Could not find user: ' + name)
                     print ('Found exception')
                     name = '@everyone'
                 # Only send further messages if user is authorized
@@ -296,18 +297,18 @@ def on_message(message):
                     except:
                         pass
                     #Abuses the member specified (First line for debugging only)
-                    #yield from client.send_message(message.channel, 'Abusing ' + name + '.')
-                    yield from client.send_message(message.channel, random.choice(insult2List) + '' + name + '' + random.choice(insultList))
+                    #returnMsg = ('Abusing ' + name + '.')
+                    returnMsg = returnMsg + '\n' + (random.choice(insult2List) + '' + name + '' + random.choice(insultList))
                 else:
                     # Let the user know that the authorization failed
-                    yield from client.send_message(message.channel, 'You are not authorized to use the abuse command.')
+                    returnMsg = returnMsg + '\n' + ('You are not authorized to use the abuse command.')
         # Help message
         elif msg.startswith('!help'):
-            yield from client.send_message(message.channel, 'A list of basic commands has been sent to you via DM')
+            returnMsg = ('A list of basic commands has been sent to you via DM')
             yield from client.send_message(message.author, helpMessage)
         # Generate an invite link for adding VictiBot to a server
         elif  msg.startswith(PREFIX + 'invite'):
-            yield from client.send_message(message.channel, 'An invite code to add VictiBot to a server you manage has been sent to you via DM')
+            returnMsg = ('An invite code to add VictiBot to a server you manage has been sent to you via DM')
             yield from client.send_message(message.author, 'Add ViciBot to a server using this link: ')
             yield from client.send_message(message.author, 'https://discordapp.com/oauth2/authorize?client_id=231595610682294272&scope=bot&permissions=0')
             yield from client.send_message(message.author, 'Note: You can only add VictiBot to a server if you have the \'Manage server\' privilege on it.')
@@ -319,13 +320,13 @@ def on_message(message):
             for i in client.servers:
                 actext = actext + i.name + ', '
             # Display a list of all servers (slicing to remove  final comma space)
-            yield from client.send_message(message.channel, actext[:-2])
+            returnMsg = (actext[:-2])
         # Same as above but with channels
         elif msg.startswith(PREFIX + 'channels'):
             actext = ''
             for i in client.get_all_channels():
                 actext = actext + i.name + ', '
-            yield from client.send_message(message.channel, actext[:-2])
+            returnMsg = (actext[:-2])
         # Same as above but with member nicknames
         elif msg.startswith(PREFIX + 'members'):
             actext = ''
@@ -335,7 +336,7 @@ def on_message(message):
                     actext = actext + i.nick + ', '
                 except:
                     pass
-            yield from client.send_message(message.channel, actext[:-2])
+            returnMsg = (actext[:-2])
         # Spams repeatedly up to ten times (restricted function)
         elif msg.startswith(PREFIX + 'spam'):
             # Check authorization for use of this function
@@ -344,7 +345,7 @@ def on_message(message):
             except:
                 # Default to blacklisting
                 botcommand = false
-            yield from client.send_message(message.channel, 'Checking authorization for ' + str(message.author))
+            returnMsg = ('Checking authorization for ' + str(message.author))
             # Do the actions only if authorization succeeded
             if botcommand:
                 # Attempt to get the specified number of spam messages to send
@@ -360,14 +361,14 @@ def on_message(message):
                 # Limit to 10 times
                 while (count <= times) and (count < 11):
                     # The spam message (potential monty python reference could go here)
-                    yield from client.send_message(message.channel, 'SpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
+                    returnMsg = returnMsg + ('\nSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
                     # Wait without blocking the async event loop
                     asyncio.sleep(0.5)
                     # Standard incrementation of count
                     count += 1
             else:
                 # Let the user know that the authorization failed
-                yield from client.send_message(message.channel, 'You are not authorized to use this function')
+                returnMsg = ('You are not authorized to use this function')
         # Respond to messages from dictionaries (to make code more efficient)
         else:
             foundNoCommands = True
@@ -381,18 +382,18 @@ def on_message(message):
             # TODO: Add a new dictionary for commands to respond to messages containing the keyword
             try:
                 # Prefix commands take priority over standard text commands
-                yield from client.send_message(message.channel, prefixMessageIndex[(msg)])
+                returnMsg = (prefixMessageIndex[(msg)])
                 # Debugging purposes only
                 #print ('Prefix Done')
             except:
                 try:
-                    yield from client.send_message(message.channel, messageIndex[msg])
+                    returnMsg = (messageIndex[msg])
                 except:
                     for key, value in containsMessageIndex.items():
                         if contains(msg, key) >= 1:
-                            yield from client.send_message(message.channel, value)
-    elif message.server.name == 'Team 1418' and (not message.author.bot) and (not foundNoCommands):
-        yield from client.send_message(message.channel, 'Sorry, the VictiBot command you are searching for is _disabled_ on this server. Please use it somewhere else')
+                            returnMsg = (value)
+    if (not message.server.name == 'Team 1418') and (not foundNoCommands):
+        yield from client.send_message(message.channel, returnMsg)
 
 @client.async_event
 # Respond on a new member joining
