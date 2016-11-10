@@ -194,7 +194,7 @@ def on_message(message):
             pass
     # Only send back message if user that sent the triggering message isn't a bot
     msg = message.content.lower()
-    if (not message.author.bot)] and (not message.server.name == 'Team 1418'):
+    if (not message.author.bot) and (not message.server.name == 'Team 1418'):
         # Special returns!
         # About message
         if msg.startswith(PREFIX + 'about'):
