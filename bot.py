@@ -182,7 +182,7 @@ def on_ready():
 # Process and respond to all messages the bot receives
 def on_message(message):
     """Catch a user's messages and figure out what to return."""
-    foundNoCommands = False
+    foundNoCommands = True
     msg = message.content.lower()
     localtime = time.asctime( time.localtime(time.time()) )
     timezone = time.altzone
@@ -196,6 +196,7 @@ def on_message(message):
     # Only send back message if user that sent the triggering message isn't a bot
     msg = message.content.lower()
     if (not message.author.bot) and (not message.server.name == 'Team 1418'):
+        foundNoCommands = False
         # Special returns!
         # About message
         if msg.startswith(PREFIX + 'about'):
