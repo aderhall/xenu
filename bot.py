@@ -194,7 +194,7 @@ def on_message(message):
             pass
     # Only send back message if user that sent the triggering message isn't a bot
     msg = message.content.lower()
-    if (not message.author.bot) and (not message.server.name == 'Team 1418'):
+    if (not message.author.bot)] and (not message.server.name == 'Team 1418'):
         # Special returns!
         # About message
         if msg.startswith(PREFIX + 'about'):
@@ -387,7 +387,8 @@ def on_message(message):
                     for key, value in containsMessageIndex.items():
                         if contains(msg, key) >= 1:
                             yield from client.send_message(message.channel, value)
-
+    elif message.server.name == 'Team 1418':
+        yield from client.send_message(message.channel, 'Sorry, the VictiBot command you are searching for is _disabled_ on this server. Please use it somewhere else')
 
 @client.async_event
 # Respond on a new member joining
