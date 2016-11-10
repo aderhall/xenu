@@ -387,7 +387,7 @@ def on_message(message):
                     for key, value in containsMessageIndex.items():
                         if contains(msg, key) >= 1:
                             yield from client.send_message(message.channel, value)
-    elif message.server.name == 'Team 1418':
+    elif message.server.name == 'Team 1418' and (not message.author.bot):
         yield from client.send_message(message.channel, 'Sorry, the VictiBot command you are searching for is _disabled_ on this server. Please use it somewhere else')
 
 @client.async_event
