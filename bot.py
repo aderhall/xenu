@@ -392,8 +392,10 @@ def on_message(message):
                     for key, value in containsMessageIndex.items():
                         if contains(msg, key) >= 1:
                             returnMsg = (value)
-    if (not message.server.name == 'Team 1418') and (not foundNoCommands):
+    if (not message.server.name == 'Team 1418'):
         yield from client.send_message(message.channel, returnMsg)
+    elif not foundNoCommands:
+        yield from client.send_message(message.channel, 'Sorry, but the VictiBot command you have requested has been _disabled_ on this server. Please try somewhere else.')
 
 @client.async_event
 # Respond on a new member joining
