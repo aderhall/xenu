@@ -370,6 +370,7 @@ def on_message(message):
         # Respond to messages from dictionaries (to make code more efficient)
         else:
             foundNoCommands = True
+            print ('Found no commands!')
             # Respond if the message has a basic, static response.
             # Attempt to retrieve response from a dictionary
             # Note: I know very well that this is not the most efficient way to respond to commands
