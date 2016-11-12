@@ -378,6 +378,18 @@ def on_message(message):
             else:
                 # Let the user know that the authorization failed
                 returnMsg = ('You are not authorized to use this function')
+        elif msg.startswith(PREFIX + 'define'):
+            define = message.content[8:]
+            # Establish a link with the website
+            page = requests.get('http://www.yourdictionary.com/' + define )
+            tree = html.fromstring(page.content)
+            # Collect the specific word using XCode
+            Definition = tree.xpath('//*[@id="definitions_panel"]/div/div/div[4]/div[1]/div[1]')
+            # Dictionary term
+            # Now just need to print definition to chat
+            # Don't know how to do that
+            # I'll try something, but it's probably bad.
+            returnMsg = 'Definition for ' + define + ': ' + Definition + ' (retrieved from yourdictionary.com)'
         # Respond to messages from dictionaries (to make code more efficient)
         else:
             foundNoCommands = True
