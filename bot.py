@@ -384,7 +384,6 @@ def on_message(message):
             try:
                 returnMsg = r.json[define[8:]]
             except:
-                    actext = '\n' + wordType + ': ' + acdef
                 returnMsg = 'Could not retrieve definition'
         # Respond to messages from dictionaries (to make code more efficient)
         else:
