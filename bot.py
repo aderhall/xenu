@@ -18,7 +18,7 @@ import requests
 import json
 import os
 import itertools
-import lxml
+from lxml import html
 import time
 import random
 from discord.ext import commands
