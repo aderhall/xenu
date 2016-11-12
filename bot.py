@@ -22,7 +22,6 @@ from lxml import html
 import time
 import random
 from discord.ext import commands
-from PyDictionary import PyDictionary
 description = '''A bot for FRC team 1418's discord server. Still a work in progress, please make a pull request with any suggestions'''
 bot = commands.Bot(command_prefix='!', description=description)
 # Adaptable function for searching through text
