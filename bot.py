@@ -22,6 +22,7 @@ from lxml import html
 import time
 import random
 from discord.ext import commands
+from PyDictionary import PyDictionary
 description = '''A bot for FRC team 1418's discord server. Still a work in progress, please make a pull request with any suggestions'''
 bot = commands.Bot(command_prefix='!', description=description)
 # Adaptable function for searching through text
@@ -379,18 +380,20 @@ def on_message(message):
                 # Let the user know that the authorization failed
                 returnMsg = ('You are not authorized to use this function')
         elif msg.startswith(PREFIX + 'define'):
-            define = message.content[8:]
-            # Establish a link with the website
-            page = requests.get('http://www.yourdictionary.com/' + define )
-            tree = html.fromstring(page.content)
-            # Collect the specific word using XCode
-            Definition = tree.xpath('//*[@id="definitions_panel"]/div/div/div[4]/div[1]/div[1]')
-            # Dictionary term
-            # Now just need to print definition to chat
-            # Don't know how to do that
-            # I'll try something, but it's probably bad.
-            print ('Definition retrieved: ' + str(Definition))
-            returnMsg = 'Definition for ' + define + ': ' + str(Definition) + ' (retrieved from yourdictionary.com)'
+            try:
+                word = define[8:]
+            except:
+                returnMsg = 'usage:\n' + PREFIX + 'define <word>'
+                word = ''
+            if not word == '':
+                definition = PyDictionary.meaning(word)
+                actext = 'Definitions for ' + word + ':'
+                for wordType, definitions in definition.items():
+                    acdef = ''
+                    for i in definitions:
+                        acdef = acdef + i + '\n'
+                    actext = '\n' + wordType + ': ' + acdef
+                returnMsg = actext
         # Respond to messages from dictionaries (to make code more efficient)
         else:
             foundNoCommands = True
