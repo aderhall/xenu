@@ -382,7 +382,9 @@ def on_message(message):
             r = requests.get('https://github.com/adambom/dictionary/blob/master/dictionary.json')
             #try:
             returnMsg = r.json[(msg[8:].upper())]
+            print ('----------------------------------------------------------------')
             print ('Definition: ' + returnMsg)
+            print ('----------------------------------------------------------------')
             #except:
             #returnMsg = 'Could not retrieve definition'
         # Respond to messages from dictionaries (to make code more efficient)
