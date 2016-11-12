@@ -380,20 +380,12 @@ def on_message(message):
                 # Let the user know that the authorization failed
                 returnMsg = ('You are not authorized to use this function')
         elif msg.startswith(PREFIX + 'define'):
+            r = requests.get('https://github.com/adambom/dictionary/blob/master/dictionary.json')
             try:
-                word = define[8:]
+                returnMsg = r.json[define[8:]]
             except:
-                returnMsg = 'usage:\n' + PREFIX + 'define <word>'
-                word = ''
-            if not word == '':
-                definition = PyDictionary.meaning(word)
-                actext = 'Definitions for ' + word + ':'
-                for wordType, definitions in definition.items():
-                    acdef = ''
-                    for i in definitions:
-                        acdef = acdef + i + '\n'
                     actext = '\n' + wordType + ': ' + acdef
-                returnMsg = actext
+                returnMsg = 'Could not retrieve definition'
         # Respond to messages from dictionaries (to make code more efficient)
         else:
             foundNoCommands = True
