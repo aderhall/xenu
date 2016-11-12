@@ -381,7 +381,7 @@ def on_message(message):
         elif msg.startswith(PREFIX + 'define'):
             r = requests.get('https://github.com/adambom/dictionary/blob/master/dictionary.json')
             #try:
-            returnMsg = r.json[define[8:]]
+            returnMsg = r.json[msg[8:]]
             #except:
             #returnMsg = 'Could not retrieve definition'
         # Respond to messages from dictionaries (to make code more efficient)
