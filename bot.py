@@ -389,7 +389,8 @@ def on_message(message):
             # Now just need to print definition to chat
             # Don't know how to do that
             # I'll try something, but it's probably bad.
-            returnMsg = 'Definition for ' + define + ': ' + Definition + ' (retrieved from yourdictionary.com)'
+            print ('Definition retrieved: ' + str(Definition))
+            returnMsg = 'Definition for ' + define + ': ' + str(Definition) + ' (retrieved from yourdictionary.com)'
         # Respond to messages from dictionaries (to make code more efficient)
         else:
             foundNoCommands = True
