@@ -24,49 +24,12 @@ import random
 from discord.ext import commands
 description = '''A bot for FRC team 1418's discord server. Still a work in progress, please make a pull request with any suggestions'''
 bot = commands.Bot(command_prefix='!', description=description)
-# Adaptable function for searching through text
-def contains(origin, text):
-    vf = False
-    soc = 0
-    i = -1
-    loop = True
-    while loop:
-        vf = False
-        i += 1
-        if origin[i] == text[0]:
-            a = -1
-            loop2 = True
-            while loop2:
-                a += 1
-                try:
-                    if origin[a+i] != text[a]:
-                        vf = True
-                except:
-                    vf = True
-                if a >= (len(text)-1):
-                    loop2 = False
-        else:
-            vf = True
-        if vf == False:
-            soc += 1
-        if i >= (len(origin)-1):
-            loop = False
-            vf = True
-    return soc
-def replace(origin, char, newchar):
-    actext = ''
-    for thechar in origin:
-        if thechar == char:
-            actext = actext + newchar
-        else:
-            actext = actext + thechar
-    return actext
-
 # Initialize bot client
 # TODO: Make bot a class like normal bots.
 client = discord.Client()
 # Load saved data from previous instances
-lastchannel = str(subprocess.Popen('cat lastchannel', shell=True, stdout=subprocess.PIPE).stdout.read())
+with open('lastchannel') as f:
+    lastchannel = f.read()
 print (lastchannel)
 lastuser = lastchannel[22:]
 lastuser = lastuser[:-7]
@@ -159,7 +122,7 @@ insultList = [
     ', If laughter is the best medicine, your face must be curing the world.',
     ', I wasn\'t programmed with enough middle fingers to let you know how I feel about you. 凸 (｀0´)凸'
 ]
-insult2List = [
+insultPrefix = [
     'Hey ',
     'Yo ',
     'Whattup '
@@ -270,12 +233,7 @@ def on_message(message):
         # Abuse people
         elif msg.startswith(PREFIX + 'abuse'):
             # Check authorization of the user (necessary to avoid people spamming !abuse @everyone)
-            try:
-                # Check to see if the user has the True override in the botCommanders object
-                botcommand = botCommanders[str(message.author)]
-            except:
-                # Default for now is no access
-                botcommand = False
+            botcommand = botCommanders.get(str(message.author), False)
             # Mainly a debug function but also lets people know that this function has restrictions
             returnMsg = ('Checking authorization for ' + str(message.author))
             # Name default is string to avoid errors for now
@@ -283,32 +241,17 @@ def on_message(message):
             # Only abuse if a member is mentioned, will incorporate a for loop for recursive abuse
             if len(message.mentions) > 0:
                 # Try to get the mention string
-                try:
-                    name = msg[7:]
-                    print ('Name: ' + name)
-                    # These are now obsolete but I may use them in the future
-                    #name = message.server.get_member_named(name)
-                    print ('Name: ' + str(name))
-                    #name = str(name.mention)
-                    print ('Name: ' + name)
-                except:
-                    # Default to notice if user cannot be found, resorts to abusing everyone
-                    returnMsg = ('Could not find user: ' + name)
-                    print ('Found exception')
-                    name = '@everyone'
+                name = msg[7:]
                 # Only send further messages if user is authorized
                 if botcommand:
-                    # Attempt to print the nick of a member containing the username (for debug purposes)
-                    try:
-                        print ('User Nick: ' + message.server.get_member_named(msg[7:]).nick)
-                    except:
-                        pass
                     #Abuses the member specified (First line for debugging only)
                     #returnMsg = ('Abusing ' + name + '.')
-                    returnMsg = returnMsg + '\n' + (random.choice(insult2List) + '' + name + '' + random.choice(insultList))
+                    returnMsg = returnMsg + '\n' + (random.choice(insultPrefix) + name + random.choice(insultList))
                 else:
                     # Let the user know that the authorization failed
                     returnMsg = returnMsg + '\n' + ('You are not authorized to use the abuse command.')
+            else:
+                returnMsg = 'No user specified'
         # Help message
         elif msg.startswith('!help'):
             returnMsg = ('A list of basic commands has been sent to you via DM')
@@ -323,29 +266,13 @@ def on_message(message):
             messageIsClean = True
         # List all servers that the bot can see
         elif msg.startswith(PREFIX + 'servers'):
-            # Accumulation text variable
-            actext = ''
-            # Recursively get name of each server
-            for i in client.servers:
-                actext = actext + i.name + ', '
-            # Display a list of all servers (slicing to remove  final comma space)
-            returnMsg = (actext[:-2])
+            returnMsg = ','.join(client.servers)
         # Same as above but with channels
         elif msg.startswith(PREFIX + 'channels'):
-            actext = ''
-            for i in client.get_all_channels():
-                actext = actext + i.name + ', '
-            returnMsg = (actext[:-2])
+            returnMsg = ','.join(client.channels)
         # Same as above but with member nicknames
         elif msg.startswith(PREFIX + 'members'):
-            actext = ''
-            for i in client.get_all_members():
-                try:
-                    # Gets nick instead of name (nick is member nickname as string)
-                    actext = actext + i.nick + ', '
-                except:
-                    pass
-            returnMsg = (actext[:-2])
+            returnMsg = ','.join(member.nick for member in client.get_all_members())
         # Spams repeatedly up to ten times (restricted function)
         elif msg.startswith(PREFIX + 'spam'):
             # Check authorization for use of this function
@@ -365,16 +292,7 @@ def on_message(message):
                         # Should only be called if the user inputs a non-integer value for the number of spam messages
                         # Defaults to 5 messages
                         times = 5
-                # Recursion index starting at one to avoid user confusion (should probably fix this at some point)
-                count = 1
-                # Limit to 10 times
-                while (count <= times) and (count < 11):
-                    # The spam message (potential monty python reference could go here)
-                    returnMsg = returnMsg + ('\nSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam')
-                    # Wait without blocking the async event loop
-                    asyncio.sleep(0.5)
-                    # Standard incrementation of count
-                    count += 1
+                    returnMsg = '\nSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpamSpam'*times
             else:
                 # Let the user know that the authorization failed
                 returnMsg = ('You are not authorized to use this function')
@@ -410,7 +328,7 @@ def on_message(message):
                     for key, value in containsMessageIndex.items():
                         if contains(msg, key) >= 1:
                             returnMsg = (value)
-    if (not message.server.name == 'Team 1418') or messageIsClean:
+    if (not message.server.name == 'Team 1418') or (messageIsClean and returnMsg != ''):
         yield from client.send_message(message.channel, returnMsg)
     elif not foundNoCommands:
         yield from client.send_message(message.channel, 'Sorry, but the VictiBot command you have requested has been _disabled_ on this server. Please try somewhere else.')
