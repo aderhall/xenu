@@ -380,10 +380,10 @@ def on_message(message):
                 returnMsg = ('You are not authorized to use this function')
         elif msg.startswith(PREFIX + 'define'):
             r = requests.get('https://github.com/adambom/dictionary/blob/master/dictionary.json')
-            try:
-                returnMsg = r.json[define[8:]]
-            except:
-                returnMsg = 'Could not retrieve definition'
+            #try:
+            returnMsg = r.json[define[8:]]
+            #except:
+            #returnMsg = 'Could not retrieve definition'
         # Respond to messages from dictionaries (to make code more efficient)
         else:
             foundNoCommands = True
