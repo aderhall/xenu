@@ -139,6 +139,7 @@ insultPrefix = [
 def on_ready():
     print('Logged in as ' + client.user.name + ' (ID ' + client.user.id + ').')
     print('------')
+    yield from client.send_message(client.get_channel('243737800992751617'), 'Starting')
     # Turns out this is annoying
     yield from client.send_message(client.get_channel(lastchannel), 'Victibot is online and ready! Currently running as ' + client.user.name + ' (ID ' + client.user.id + '). Last updated by user: ' + lastuser + ' on ' + lasttime + ' (UTC). Enjoy your time with VictiBot as we watch civilization fall to pieces!')
 
@@ -326,7 +327,7 @@ def on_message(message):
                     returnMsg = (messageIndex[msg])
                 except:
                     for key, value in containsMessageIndex.items():
-                        if contains(msg, key) >= 1:
+                        if count(msg, key) >= 1:
                             returnMsg = (value)
     if (not message.server.name == 'Team 1418') or (messageIsClean and returnMsg != ''):
         yield from client.send_message(message.channel, returnMsg)
