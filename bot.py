@@ -327,7 +327,7 @@ def on_message(message):
                     returnMsg = (messageIndex[msg])
                 except:
                     for key, value in containsMessageIndex.items():
-                        if count(msg, key) >= 1:
+                        if msg.contains(key):
                             returnMsg = (value)
     if (not message.server.name == 'Team 1418') or (messageIsClean and returnMsg != ''):
         yield from client.send_message(message.channel, returnMsg)
