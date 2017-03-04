@@ -30,7 +30,7 @@ client = discord.Client()
 # Load saved data from previous instances
 with open('lastchannel') as f:
     lastchannel = f.read()
-print (lastchannel)
+print ('Last User: ' + lastchannel)
 lastuser = lastchannel[22:]
 lastuser = lastuser[:-7]
 lastchannel = lastchannel[2:20]
@@ -47,7 +47,7 @@ prefixMessageIndex = {
     # Returns the corresponding value if preceeded by the PREFIX
     PREFIX + 'ping': 'Pong!',
     PREFIX + 'hello': 'World!',
-    PREFIX + 'balloumoji': '<:bigdissapointment:236086062617853953><:moustache:236092022312665089><:ballouminatti:236132317603561475><:1982:236092769779712000><:nope:236096818180653057><:notapproved:236096861113417728><:fedora1:236131582468030474><:happy:236137265305223168><:flowers:236139383764418560><:notbad:236140764416049152><:soundboard:236147928547328000>',
+    PREFIX + 'xenu': 'Yes?',
 
 }
 messageIndex = {
@@ -146,6 +146,11 @@ def on_ready():
 @client.async_event
 # Process and respond to all messages the bot receives
 def on_message(message):
+    zainab = message.server.get_member_named('Adrian')
+    #print(zainab)
+    yield from client.change_nickname(zainab, 'CHANGED NICKNAME')
+    #yield from client.create_channel(message.server,'channel1')
+    print('Changed nickname')
     """Catch a user's messages and figure out what to return."""
     foundNoCommands = True
     msg = message.content.lower()
@@ -167,7 +172,7 @@ def on_message(message):
         # Special returns!
         # About message
         if msg.startswith(PREFIX + 'about'):
-            returnMsg = ('VictiBot is a chatbot for Team 1418\'s Discord server. Bot is currently running as ' + client.user.name + ' (ID ' + client.user.id + '). View on GitHub: https://github.com/aderhall/victibot-1')
+            returnMsg = ('Xenu was the dictator of the Galactic Confederacy, who 75 million years ago brought billions of his people to Earth (then known as "Teegeeack") in DC-8-like spacecraft, stacked them around volcanoes, and killed them with hydrogen bombs. Bot is currently running as ' + client.user.name + ' (ID ' + client.user.id + '). View on GitHub: https://github.com/aderhall/xenu')
             returnMsg = returnMsg + '\n' + ('Discuss VictiBot on VictiBot Hub: https://discord.gg/HmMMCzQ')
             messageIsClean = True
         # Get xkcd comic
@@ -209,8 +214,7 @@ def on_message(message):
             print ('Local Time: ' + localtime)
             yield from client.send_message(message.channel, 'Update Successful! Restarting...')
             # Restart
-            subprocess.Popen('python3 bot.py', shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
-            os.abort()
+            #subprocess.Popen('python3 bot.py', shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
             messageIsClean = True
         # Mute function still a work in progress, considering deprecating it
         elif msg.startswith(PREFIX + 'mute'):
@@ -337,12 +341,12 @@ def on_message(message):
 @client.async_event
 # Respond on a new member joining
 def on_member_join(member):
-    yield from client.send_message(member.server.default_channel, '**Welcome ' + member.mention + ' to the ' + member.server.name + ' server!**')
+    yield from client.send_message(member.server.default_channel, '**Welcome ' + member.mention + ' to the ' + member.server.name + ' server! All Hail XENU**')
 
 # Respond on member leaving
 @client.async_event
 def on_member_remove(member):
-    yield from client.send_message(member.server.default_channel, member.name + ' left the server :frowning: RIP ' + member.name)
+    yield from client.send_message(member.server.default_channel, '**' + member.name + '\'s soul was captured and sucked into a vacuum zone. :frowning: Fuck **' + member.name)
 
 
 # Get token from token.txt
