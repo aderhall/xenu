@@ -72,6 +72,8 @@ async def on_message(message):
     elif msg.startswith('!help') or msg.startswith('!about'):
         await client.send_message(channel, 'Xenu was the dictator of the Galactic Confederacy, who 75 million years ago brought billions of his people to Earth (then known as "Teegeeack") in DC-8-like spacecraft, stacked them around volcanoes, and killed them with hydrogen bombs. Bot is currently running as ' + client.user.name + ' (ID ' + client.user.id + '). View on GitHub: https://github.com/aderhall/xenu')
         await client.send_message(channel, 'Discuss Xenu at the Galactic Confederacy: https://discord.gg/aBT8hRT')
+    elif msg.startswith('!invite'):
+        await client.send_message(channel, 'Invite Xenu to your server with this link: https://discordapp.com/oauth2/authorize?client_id=' + str(client.user.id) + '&scope=bot&permissions=0\nNote: you must have *manage server* permissions on the server to add bots.')
     else:
         if msg in messageIndex:
             await client.send_message(message.channel, messageIndex[msg])
