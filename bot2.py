@@ -106,7 +106,13 @@ containsMessageIndex = {
     'my point' : 'https://www.youtube.com/watch?v=WOOw2yWMSfk',
     'shrek' : 'https://www.youtube.com/watch?v=cevWfNbRVpo',
     'america' : 'America is dead. All hail Rumpland.',
-    'rump' : 'FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK https://www.youtube.com/watch?v=AtbMnixO2nc FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK RUMP'
+    'rump' : 'FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK https://www.youtube.com/watch?v=AtbMnixO2nc FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK RUMP',
+    'computer' : 'WHAT ARE YOU DOING ON COMPUTER?! GO OUTSIDE SO BEAUTIdFUL AGH, NYAH',
+    'me' : 'https://www.youtube.com/watch?v=JTylWFLQNME&t=1s',
+    'troll' : 'https://www.youtube.com/watch?v=2Z4m4lnjxkY&t=1s',
+    'grush' : 'https://www.youtube.com/watch?v=64TbMz-hA3w',
+    'enough' : 'https://www.youtube.com/watch?v=2uMkdqLypsQ',
+    'disappointed' : 'https://www.youtube.com/watch?v=_O1hM-k3aUY'
 }
 
 @client.event
