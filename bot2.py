@@ -92,6 +92,7 @@ messageIndex = {
 
 containsMessageIndex = {
     # Returns the corresponding text if it contains the keyword unless it interferes with the pMI or mI
+    'tommy wiseau' : 'do you mean one of the best actors in all of existance?',
     'determination' : 'Knowing the mouse might one day leave its hole and get the cheese... It fills you with determination.',
     'china' : 'https://www.youtube.com/watch?v=RDrfE9I8_hs',
     'tunak' : 'https://www.youtube.com/watch?v=vTIIMJ9tUc8',
@@ -144,6 +145,8 @@ async def on_message(message):
             await client.send_message(channel, random.choice(insultPrefix) + name + random.choice(insultList))
         else:
             await client.send_message(channel, 'No user specified')
+    elif msg.startswith('XD'):
+        await client.kick(message.author)
     else:
         if msg in messageIndex:
             await client.send_message(message.channel, messageIndex[msg])
